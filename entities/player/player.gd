@@ -1,0 +1,72 @@
+extends CharacterBody3D
+
+@export var speed: float = 100.0
+@export var mouse_sensitivity: float = 0.01
+@export var gravity: float = 9.8
+
+var camera: Camera3D
+var mouse_captured: bool = false
+
+
+func _ready() -> void:
+	camera = $Camera3D
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	mouse_captured = true
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		if mouse_captured:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			mouse_captured = false
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			mouse_captured = true
+	
+	handle_movement(delta)
+	
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	
+	move_and_slide()
+
+
+func handle_movement(_delta: float) -> void:
+	var input_dir = Vector3.ZERO
+	
+	if Input.is_action_pressed("forward"):
+		input_dir.z -= 1
+	if Input.is_action_pressed("backward"):
+		input_dir.z += 1
+	if Input.is_action_pressed("left"):
+		input_dir.x -= 1
+	if Input.is_action_pressed("right"):
+		input_dir.x += 1
+	
+	if input_dir.length() > 0:
+		input_dir = input_dir.normalized()
+	
+	var forward = camera.global_transform.basis.z
+	var right = camera.global_transform.basis.x
+	
+	forward.y = 0
+	right.y = 0
+	forward = forward.normalized()
+	right = right.normalized()
+	
+	var move_dir = (forward * input_dir.z + right * input_dir.x) * speed
+	velocity.x = move_dir.x
+	velocity.z = move_dir.z
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and mouse_captured:
+		var motion = event as InputEventMouseMotion
+		
+		rotate_y(-motion.relative.x * mouse_sensitivity)
+		
+		camera.rotate_object_local(Vector3.RIGHT, -motion.relative.y * mouse_sensitivity)
+		
+		var camera_rot = camera.rotation.x
+		camera.rotation.x = clamp(camera_rot, -PI / 2, PI / 2)
