@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bykwnmcaycsik" path="res://scenery/trees.glb" id="4_21e61"]
 [ext_resource type="PackedScene" uid="uid://dosljd40iaqcr" path="res://scenery/river.glb" id="5_ia55n"]
 [ext_resource type="PackedScene" uid="uid://rvf074qch17a" path="res://entities/player/player.tscn" id="6_mr62e"]
+[ext_resource type="PackedScene" uid="uid://cdc3q3fg7o5tu" path="res://heikki/gamejam_collision_walls.tscn" id="7_1gve2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3anks"]
 material = ExtResource("1_fidki")
@@ -96,3 +97,7 @@ visible = false
 
 [node name="Player" parent="." unique_id=153770063 instance=ExtResource("6_mr62e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.308203, 1.520216, 20.541727)
+
+[node name="gamejam_collision_walls" parent="." unique_id=334877506 instance=ExtResource("7_1gve2")]
+
+[editable path="gamejam_collision_walls"]
