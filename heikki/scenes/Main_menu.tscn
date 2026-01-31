@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://oagttttupjoi"]
+
+[ext_resource type="Material" uid="uid://6pwnjv4tqguu" path="res://materials/snow.tres" id="1_f24s8"]
+[ext_resource type="Texture2D" uid="uid://4jc5kgwsqhic" path="res://materials/MaskGame-MAPwithElfs.png" id="2_e84fe"]
+[ext_resource type="Texture2D" uid="uid://ccj3vn0xs3nk1" path="res://heikki/mask-game_bg.png" id="3_avqv6"]
+[ext_resource type="PackedScene" uid="uid://c01opld3b52i3" path="res://scenery/snow_banks.glb" id="4_fvj13"]
+[ext_resource type="PackedScene" uid="uid://bykwnmcaycsik" path="res://scenery/trees.glb" id="5_21d2y"]
+[ext_resource type="PackedScene" uid="uid://dosljd40iaqcr" path="res://scenery/river.glb" id="6_nloix"]
+[ext_resource type="Texture2D" uid="uid://brk0xm5vchg6" path="res://heikki/hand_phone_1-export.png" id="7_e84fe"]
+[ext_resource type="AudioStream" uid="uid://dyold3qkuptik" path="res://heikki/sound_effects/cellphone_1.wav" id="8_avqv6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m5tit"]
+material = ExtResource("1_f24s8")
+size = Vector2(50, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63x4u"]
+albedo_texture = ExtResource("2_e84fe")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qygqi"]
+panorama = ExtResource("3_avqv6")
+energy_multiplier = 4.26
+
+[sub_resource type="Sky" id="Sky_1x7oe"]
+sky_material = SubResource("PanoramaSkyMaterial_qygqi")
+
+[sub_resource type="Environment" id="Environment_et0bd"]
+background_mode = 2
+sky = SubResource("Sky_1x7oe")
+sky_rotation = Vector3(-1.3456489, 6.213372, 0)
+ambient_light_source = 3
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 2.94
+fog_density = 1.0
+fog_sky_affect = 0.1
+volumetric_fog_density = 0.6605
+volumetric_fog_ambient_inject = 0.98
+
+[node name="MainMenu" type="Node3D" unique_id=1425364131]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=592223274]
+mesh = SubResource("PlaneMesh_m5tit")
+
+[node name="MapTemplate" type="MeshInstance3D" parent="." unique_id=1191814319]
+visible = false
+material_override = SubResource("StandardMaterial3D_63x4u")
+mesh = SubResource("PlaneMesh_m5tit")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=647825118]
+environment = SubResource("Environment_et0bd")
+
+[node name="SnowBanks" parent="." unique_id=2103701614 instance=ExtResource("4_fvj13")]
+
+[node name="Trees" parent="." unique_id=656096379 instance=ExtResource("5_21d2y")]
+
+[node name="River" parent="." unique_id=734036317 instance=ExtResource("6_nloix")]
+visible = false
+
+[node name="Menu_UI" type="Control" parent="." unique_id=728287189]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 27.0
+offset_right = 613.0
+offset_bottom = 539.0
+
+[node name="ColorRect" type="ColorRect" parent="Menu_UI" unique_id=61189542]
+layout_mode = 0
+offset_left = 802.99994
+offset_top = 426.0
+offset_right = 1066.0
+offset_bottom = 686.0
+scale = Vector2(0.94677716, 0.7605353)
+color = Color(0.34980133, 0.6157364, 0.22797161, 1)
+
+[node name="Label" type="Label" parent="Menu_UI/ColorRect" unique_id=1566022134]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 18.000002
+offset_right = 1578.0
+offset_bottom = 409.0
+scale = Vector2(0.129109, 0.19763349)
+theme_override_colors/font_color = Color(0.059146672, 0.19187322, 0, 1)
+theme_override_font_sizes/font_size = 142
+text = "Get rid of the gnomes. 
+You have 30 minutes."
+
+[node name="Label2" type="Label" parent="Menu_UI/ColorRect" unique_id=1906266115]
+layout_mode = 0
+offset_left = 21.124355
+offset_top = 149.89444
+offset_right = 1583.1244
+offset_bottom = 540.8945
+scale = Vector2(0.07995616, 0.11727518)
+theme_override_colors/font_color = Color(0.059146672, 0.19187322, 0, 1)
+theme_override_font_sizes/font_size = 142
+text = "Respond"
+
+[node name="Button" type="Button" parent="Menu_UI/ColorRect" unique_id=971682888]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 199.0
+offset_right = 106.0
+offset_bottom = 257.0
+theme_override_colors/font_color = Color(0.059146672, 0.19187322, 0, 1)
+text = "Lol ok"
+
+[node name="Button2" type="Button" parent="Menu_UI/ColorRect" unique_id=1579146925]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 205.0
+offset_right = 261.0
+offset_bottom = 256.0
+theme_override_colors/font_color = Color(0.059146672, 0.19187322, 0, 1)
+text = "No :)"
+
+[node name="Window" type="Window" parent="Menu_UI" unique_id=135190474]
+oversampling_override = 1.0
+title = "MyPhone"
+initial_position = 1
+size = Vector2i(291, 265)
+visible = false
+
+[node name="HandPhone1Export" type="Sprite2D" parent="Menu_UI" unique_id=1186241631]
+position = Vector2(842, 677)
+texture = ExtResource("7_e84fe")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=274090933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9200646, 4.4699297, 15.978261)
+fov = 71.10013
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1892380230]
+stream = ExtResource("8_avqv6")
+volume_db = 0.648
+autoplay = true
