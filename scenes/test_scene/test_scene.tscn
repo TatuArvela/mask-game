@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bykwnmcaycsik" path="res://scenery/trees.glb" id="5_doi4a"]
 [ext_resource type="PackedScene" uid="uid://cf7nr22ao4mkq" path="res://entities/gnome/gnome.tscn" id="6_doi4a"]
 [ext_resource type="PackedScene" uid="uid://dosljd40iaqcr" path="res://scenery/river.glb" id="6_vrddd"]
+[ext_resource type="Script" uid="uid://b2h6smbg1i78" path="res://scenes/test_scene/game_manager.gd" id="10_g451t"]
+[ext_resource type="PackedScene" uid="uid://rynlexmmmf0m" path="res://entities/gnome/alert_area.tscn" id="10_ioiol"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0rq3"]
 albedo_texture = ExtResource("1_ork3v")
@@ -56,9 +58,6 @@ fog_density = 1.0
 fog_sky_affect = 0.832
 volumetric_fog_density = 0.6605
 volumetric_fog_ambient_inject = 0.98
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_vrddd"]
-radius = 3.480079
 
 [node name="TestScene" type="Node" unique_id=1051480340]
 
@@ -117,31 +116,159 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
 [node name="Trees" parent="." unique_id=1159743760 instance=ExtResource("5_doi4a")]
 
 [node name="River" parent="." unique_id=2055334123 instance=ExtResource("6_vrddd")]
-visible = false
 
 [node name="Player" parent="." unique_id=153770063 instance=ExtResource("1_8pyld")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92769814, 1.520216, 20.541727)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.977701, 1.520216, 20.541727)
 
-[node name="Gnome" parent="." unique_id=1379355462 node_paths=PackedStringArray("alert_area", "hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+[node name="Gnome1" parent="." unique_id=1379355462 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.132262, 0, 6.813633)
-alert_area = NodePath("AlertArea")
 hiding_spot = NodePath("HidingSpot")
 idle_spot = NodePath("IdleSpot")
 
-[node name="HidingSpot" type="Marker3D" parent="Gnome" unique_id=1235762725]
+[node name="HidingSpot" type="Marker3D" parent="Gnome1" unique_id=1235762725]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29491806, 0.38373327, -4.3957214)
 
-[node name="IdleSpot" type="Marker3D" parent="Gnome" unique_id=981201876]
+[node name="IdleSpot" type="Marker3D" parent="Gnome1" unique_id=981201876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
 
-[node name="AlertArea" type="Area3D" parent="Gnome" unique_id=202106984]
-collision_layer = 0
-collision_mask = 2
+[node name="AlertArea" parent="Gnome1" unique_id=1138878469 instance=ExtResource("10_ioiol")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Gnome/AlertArea" unique_id=1000657664]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6532867, 0)
-shape = SubResource("SphereShape3D_vrddd")
-debug_color = Color(0.9036351, 0, 0.45045578, 1)
+[node name="Gnome2" parent="." unique_id=1337338378 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+transform = Transform3D(0.40939763, 0, 0.9123561, 0, 1, 0, -0.9123561, 0, 0.40939763, -13.288012, 0, -14.85989)
+hiding_spot = NodePath("HidingSpot")
+idle_spot = NodePath("IdleSpot")
 
-[connection signal="body_entered" from="Gnome/AlertArea" to="Gnome" method="_on_alert_area_body_entered"]
-[connection signal="body_exited" from="Gnome/AlertArea" to="Gnome" method="_on_alert_area_body_exited"]
+[node name="HidingSpot" type="Marker3D" parent="Gnome2" unique_id=606242620]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29491806, 0.38373327, -4.3957214)
+
+[node name="IdleSpot" type="Marker3D" parent="Gnome2" unique_id=18594044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
+
+[node name="AlertArea" parent="Gnome2" unique_id=1327917895 instance=ExtResource("10_ioiol")]
+
+[node name="Gnome3" parent="." unique_id=2040221941 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+transform = Transform3D(0.37497875, 0, 0.92703336, 0, 1, 0, -0.92703336, 0, 0.37497875, 6.8233395, 0, -14.024126)
+hiding_spot = NodePath("HidingSpot")
+idle_spot = NodePath("IdleSpot")
+
+[node name="HidingSpot" type="Marker3D" parent="Gnome3" unique_id=325310742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29491806, 0.38373327, -4.3957214)
+
+[node name="IdleSpot" type="Marker3D" parent="Gnome3" unique_id=1958978098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
+
+[node name="AlertArea" parent="Gnome3" unique_id=323920459 instance=ExtResource("10_ioiol")]
+
+[node name="Gnome4" parent="." unique_id=635359709 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+transform = Transform3D(-0.8030047, 0, 0.5959727, 0, 1, 0, -0.5959727, 0, -0.8030047, 18.409128, 0, -18.828417)
+hiding_spot = NodePath("HidingSpot")
+idle_spot = NodePath("IdleSpot")
+
+[node name="HidingSpot" type="Marker3D" parent="Gnome4" unique_id=1460823753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6614304, 0.38373327, -4.5160656)
+
+[node name="IdleSpot" type="Marker3D" parent="Gnome4" unique_id=1668601054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
+
+[node name="AlertArea" parent="Gnome4" unique_id=190320968 instance=ExtResource("10_ioiol")]
+
+[node name="Gnome5" parent="." unique_id=322659902 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+transform = Transform3D(-0.92319685, 0, -0.3843274, 0, 1, 0, 0.3843274, 0, -0.92319685, 22.038559, 0, 13.920183)
+hiding_spot = NodePath("HidingSpot")
+idle_spot = NodePath("IdleSpot")
+
+[node name="HidingSpot" type="Marker3D" parent="Gnome5" unique_id=1820530417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8186655, 0.38373327, 1.3324738)
+
+[node name="IdleSpot" type="Marker3D" parent="Gnome5" unique_id=1296522020]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
+
+[node name="AlertArea" parent="Gnome5" unique_id=1163894159 instance=ExtResource("10_ioiol")]
+
+[node name="Hud" type="Control" parent="." unique_id=1879344065]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud" unique_id=1982121150]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hud/MarginContainer" unique_id=865921654]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="GnomesLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer" unique_id=2013249852]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 24
+text = "Gnomes: "
+
+[node name="GnomeCountLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer" unique_id=2057090164]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 32
+text = "1/5"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Hud/MarginContainer" unique_id=2044858940]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="GnomesLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer2" unique_id=2093914795]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 24
+text = "Energy:"
+
+[node name="Control" type="Control" parent="Hud/MarginContainer/HBoxContainer2" unique_id=2039227155]
+layout_mode = 2
+
+[node name="EnergyProgressBar" type="ProgressBar" parent="Hud/MarginContainer/HBoxContainer2/Control" unique_id=613885873]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_right = 304.0
+offset_bottom = 36.0
+value = 50.0
+show_percentage = false
+
+[node name="CenterContainer" type="CenterContainer" parent="Hud/MarginContainer" unique_id=474080862]
+layout_mode = 2
+
+[node name="WinnerLabel" type="Label" parent="Hud/MarginContainer/CenterContainer" unique_id=73683996]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+text = "You're winner!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameManager" type="Node" parent="." unique_id=1065258272]
+unique_name_in_owner = true
+script = ExtResource("10_g451t")
+
+[connection signal="body_entered" from="Gnome1/AlertArea" to="Gnome1" method="_on_alert_area_body_entered"]
+[connection signal="body_exited" from="Gnome1/AlertArea" to="Gnome1" method="_on_alert_area_body_exited"]
+[connection signal="body_entered" from="Gnome2/AlertArea" to="Gnome2" method="_on_alert_area_body_entered"]
+[connection signal="body_exited" from="Gnome2/AlertArea" to="Gnome2" method="_on_alert_area_body_exited"]
+[connection signal="body_entered" from="Gnome3/AlertArea" to="Gnome3" method="_on_alert_area_body_entered"]
+[connection signal="body_exited" from="Gnome3/AlertArea" to="Gnome3" method="_on_alert_area_body_exited"]
+[connection signal="body_entered" from="Gnome4/AlertArea" to="Gnome4" method="_on_alert_area_body_entered"]
+[connection signal="body_exited" from="Gnome4/AlertArea" to="Gnome4" method="_on_alert_area_body_exited"]
+[connection signal="body_entered" from="Gnome5/AlertArea" to="Gnome5" method="_on_alert_area_body_entered"]
+[connection signal="body_exited" from="Gnome5/AlertArea" to="Gnome5" method="_on_alert_area_body_exited"]

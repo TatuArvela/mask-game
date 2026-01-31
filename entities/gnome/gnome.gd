@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 
 	if state == GnomeState.ALERT:
 		pass
-	
+
 	if state == GnomeState.JUMP_TO_IDLE:
 		var distance = body.global_position.distance_to(idle_spot.global_position)
 		if distance > stop_distance:
@@ -96,6 +96,9 @@ func _process(delta: float) -> void:
 			jump_progress = 0.0
 			body.global_position.y = 0.0
 			state = GnomeState.ALERT
+	
+	if state == GnomeState.WILL_JUMP_TO_HIDING:
+		body.look_at(%Player.global_position, Vector3.UP)
 
 
 func _on_alert_area_body_entered(_body: Node3D) -> void:
