@@ -55,6 +55,11 @@ func _process(delta: float) -> void:
 
 
 func handle_movement(delta: float) -> void:
+	if (%GameManager.is_game_over):
+		velocity.x = 0.0
+		velocity.z = 0.0
+		return
+
 	var input_dir = Vector3.ZERO
 
 	if Input.is_action_pressed("forward"):
@@ -104,8 +109,12 @@ func handle_movement(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-	#	grab()
+	if %GameManager.is_game_over:
+		return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		grab()
+
 	if event is InputEventMouseMotion and mouse_captured:
 		var motion = event as InputEventMouseMotion
 		

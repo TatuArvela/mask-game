@@ -1,31 +1,35 @@
 extends Node
 
+var is_game_over: bool = false
 var total_gnomes: int = 5
-var remaining_gnomes: int = total_gnomes
-
-var gnome_count_label: Label
-var energy_progress_bar: ProgressBar
-var winner_label: Label
+var caught_gnomes: int = 0
+var time_left: float = 90.0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	gnome_count_label = %GnomeCountLabel
-	energy_progress_bar = %EnergyProgressBar
-	winner_label = %WinnerLabel
-	winner_label.hide()
+	%LoseLabel.hide()
+	%WinLabel.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	gnome_count_label.text = str(remaining_gnomes) + "/" + str(total_gnomes)
-	energy_progress_bar.value = %Player.energy
+	if not is_game_over:
+		time_left -= delta
+		time_left = max(time_left, 0.0)
 
-	if remaining_gnomes <= 0:
-		winner_label.show()
+	%TimeLeftLabel.text = str(roundi(time_left))
+	%GnomeCountLabel.text = str(caught_gnomes) + "/" + str(total_gnomes)
+	%EnergyProgressBar.value = %Player.energy
+
+	if caught_gnomes == total_gnomes:
+		%WinLabel.show()
+		is_game_over = true
+	
+	if time_left <= 0.0 and not is_game_over:
+		%LoseLabel.show()
+		is_game_over = true
 
 
 func gnome_caught() -> void:
-	remaining_gnomes -= 1
-	if remaining_gnomes <= 0:
-		print("All gnomes caught! You win!")
+	caught_gnomes += 1

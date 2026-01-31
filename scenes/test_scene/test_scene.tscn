@@ -246,15 +246,37 @@ offset_bottom = 36.0
 value = 50.0
 show_percentage = false
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="Hud/MarginContainer" unique_id=482632527]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TimeLeftLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer3" unique_id=1178149591]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 36
+text = "30"
+
 [node name="CenterContainer" type="CenterContainer" parent="Hud/MarginContainer" unique_id=474080862]
 layout_mode = 2
 
-[node name="WinnerLabel" type="Label" parent="Hud/MarginContainer/CenterContainer" unique_id=73683996]
+[node name="WinLabel" type="Label" parent="Hud/MarginContainer/CenterContainer" unique_id=73683996]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 64
 text = "You're winner!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoseLabel" type="Label" parent="Hud/MarginContainer/CenterContainer" unique_id=799728407]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+text = "It is too late now..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
