@@ -1,18 +1,29 @@
 [gd_scene format=3 uid="uid://432q5kgg37fa"]
 
-[ext_resource type="Material" uid="uid://6pwnjv4tqguu" path="res://materials/snow.tres" id="1_1x7oe"]
 [ext_resource type="PackedScene" uid="uid://rvf074qch17a" path="res://entities/player/player.tscn" id="1_8pyld"]
+[ext_resource type="Texture2D" uid="uid://dk28hu44mqq3n" path="res://materials/snow.png" id="1_ork3v"]
 [ext_resource type="Texture2D" uid="uid://4jc5kgwsqhic" path="res://materials/MaskGame-MAPwithElfs.png" id="2_l4ihe"]
 [ext_resource type="PackedScene" uid="uid://c01opld3b52i3" path="res://scenery/snow_banks.glb" id="4_l4ihe"]
 [ext_resource type="PackedScene" uid="uid://bykwnmcaycsik" path="res://scenery/trees.glb" id="5_doi4a"]
+[ext_resource type="PackedScene" uid="uid://cf7nr22ao4mkq" path="res://entities/gnome/gnome.tscn" id="6_doi4a"]
 [ext_resource type="PackedScene" uid="uid://dosljd40iaqcr" path="res://scenery/river.glb" id="6_vrddd"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_3anks"]
-material = ExtResource("1_1x7oe")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0rq3"]
+albedo_texture = ExtResource("1_ork3v")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g451t"]
+material = SubResource("StandardMaterial3D_a0rq3")
 size = Vector2(50, 50)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_doi4a"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ioiol"]
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
 albedo_texture = ExtResource("2_l4ihe")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d01bh"]
+material = SubResource("StandardMaterial3D_ioiol")
+size = Vector2(50, 50)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8pyld"]
 
@@ -42,12 +53,11 @@ volumetric_fog_ambient_inject = 0.98
 [node name="TestScene" type="Node" unique_id=1051480340]
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=472530435]
-mesh = SubResource("PlaneMesh_3anks")
+mesh = SubResource("PlaneMesh_g451t")
 
 [node name="MapTemplate" type="MeshInstance3D" parent="." unique_id=288267578]
 visible = false
-material_override = SubResource("StandardMaterial3D_doi4a")
-mesh = SubResource("PlaneMesh_3anks")
+mesh = SubResource("PlaneMesh_d01bh")
 
 [node name="Boundaries" type="Node3D" parent="." unique_id=1658418817]
 
@@ -95,4 +105,15 @@ environment = SubResource("Environment_l4ihe")
 visible = false
 
 [node name="Player" parent="." unique_id=153770063 instance=ExtResource("1_8pyld")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.308203, 1.520216, 20.541727)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92769814, 1.520216, 20.541727)
+
+[node name="GnomeHidingSpot" type="Marker3D" parent="." unique_id=1235762725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4271803, 0.38373327, 2.4179115)
+
+[node name="GnomeIdleSpot" type="Marker3D" parent="." unique_id=981201876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.137, 0, 6.779)
+
+[node name="Gnome" parent="." unique_id=1379355462 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.132262, 0, 6.813633)
+hiding_spot = NodePath("../GnomeHidingSpot")
+idle_spot = NodePath("../GnomeIdleSpot")

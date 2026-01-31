@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cf7nr22ao4mkq"]
+
+[ext_resource type="PackedScene" uid="uid://bq8b1oqb63x6" path="res://entities/gnome/gnome.glb" id="1_ddfpx"]
+[ext_resource type="Script" uid="uid://gm3le1t44p45" path="res://entities/gnome/gnome.gd" id="1_xhlwq"]
+[ext_resource type="Curve" uid="uid://dknufn1gxbvwc" path="res://entities/gnome/jump_curve.tres" id="2_tr54o"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vrddd"]
+radius = 1.2949219
+height = 4.8461304
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tr54o"]
+radius = 1.2032886
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xhlwq"]
+radius = 3.480079
+
+[node name="Gnome" type="Node3D" unique_id=1337338378]
+script = ExtResource("1_xhlwq")
+jump_curve = ExtResource("2_tr54o")
+
+[node name="GnomeBody" type="StaticBody3D" parent="." unique_id=70795478]
+collision_layer = 0
+
+[node name="gnome" parent="GnomeBody" unique_id=1710539232 instance=ExtResource("1_ddfpx")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GnomeBody" unique_id=268978251]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.5628786, 0)
+shape = SubResource("CapsuleShape3D_vrddd")
+
+[node name="GrabArea" type="Area3D" parent="GnomeBody" unique_id=1851701428]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GnomeBody/GrabArea" unique_id=841924211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45706224, 0)
+shape = SubResource("SphereShape3D_tr54o")
+
+[node name="AlertArea" type="Area3D" parent="." unique_id=876524989]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AlertArea" unique_id=389937185]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6532867, 0)
+shape = SubResource("SphereShape3D_xhlwq")
+
+[connection signal="body_entered" from="AlertArea" to="." method="_on_alert_area_body_entered"]
+[connection signal="body_exited" from="AlertArea" to="." method="_on_alert_area_body_exited"]
