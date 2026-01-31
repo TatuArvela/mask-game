@@ -3,7 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://rvf074qch17a" path="res://entities/player/player.tscn" id="1_8pyld"]
 [ext_resource type="Texture2D" uid="uid://dk28hu44mqq3n" path="res://materials/snow.png" id="1_ork3v"]
 [ext_resource type="Texture2D" uid="uid://4jc5kgwsqhic" path="res://materials/MaskGame-MAPwithElfs.png" id="2_l4ihe"]
+[ext_resource type="AudioStream" uid="uid://b6tmye1apbqui" path="res://music/kuumotus_musiikki.wav" id="2_otg31"]
 [ext_resource type="PackedScene" uid="uid://besyrekpdlapw" path="res://scenery/collision_walls.tscn" id="3_ork3v"]
+[ext_resource type="AudioStream" uid="uid://nxtj2dlc3xsy" path="res://sound_effects/bird_sounds_1.wav" id="3_q6ea6"]
 [ext_resource type="PackedScene" uid="uid://nh430rmpdj0i" path="res://scenery/snowfall.tscn" id="4_a0rq3"]
 [ext_resource type="PackedScene" uid="uid://c01opld3b52i3" path="res://scenery/snow_banks.glb" id="4_l4ihe"]
 [ext_resource type="PackedScene" uid="uid://bykwnmcaycsik" path="res://scenery/trees.glb" id="5_doi4a"]
@@ -160,6 +162,16 @@ theme_override_font_sizes/font_size = 64
 text = "It is too late now..."
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Audio" type="Node" parent="." unique_id=2007493565]
+
+[node name="Music" type="AudioStreamPlayer3D" parent="Audio" unique_id=259118501]
+stream = ExtResource("2_otg31")
+autoplay = true
+
+[node name="BirdSounds" type="AudioStreamPlayer3D" parent="Audio" unique_id=111636669]
+stream = ExtResource("3_q6ea6")
+autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2125420096]
 environment = SubResource("Environment_l4ihe")

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bq8b1oqb63x6" path="res://entities/gnome/gnome.glb" id="1_ddfpx"]
 [ext_resource type="Script" uid="uid://gm3le1t44p45" path="res://entities/gnome/gnome.gd" id="1_xhlwq"]
 [ext_resource type="Curve" uid="uid://dknufn1gxbvwc" path="res://entities/gnome/jump_curve.tres" id="2_tr54o"]
+[ext_resource type="AudioStream" uid="uid://ben0v3y0fm0i7" path="res://sound_effects/gnome_scheming.wav" id="4_tic3j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vrddd"]
 radius = 0.6015625
@@ -33,5 +34,9 @@ collision_mask = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GnomeBody/GnomeGrabArea" unique_id=841924211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45706224, 0)
 shape = SubResource("SphereShape3D_tr54o")
+
+[node name="Scheming" type="AudioStreamPlayer3D" parent="." unique_id=1473009441]
+stream = ExtResource("4_tic3j")
+volume_db = -8.0
 
 [connection signal="area_entered" from="GnomeBody/GnomeGrabArea" to="." method="_on_grab_area_area_entered"]

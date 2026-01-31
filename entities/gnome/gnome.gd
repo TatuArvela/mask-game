@@ -2,12 +2,12 @@ extends Node3D
 
 @onready
 var body: StaticBody3D = $GnomeBody
-
 @onready
 var grab_area: Area3D = $GrabArea
-
 @onready
 var gnome_mesh: Node3D = $GnomeBody/gnome
+@onready
+var scheming: AudioStreamPlayer3D = $Scheming
 
 @export var alert_area: Area3D
 @export var hiding_spot: Marker3D
@@ -73,6 +73,7 @@ func _process(delta: float) -> void:
 	if state == GnomeState.IDLE:
 		idle_elapsed += delta
 		if idle_duration > 0.0 and idle_elapsed >= idle_duration:
+			_play_scheming()
 			_schedule_new_idle_target()
 
 	if state == GnomeState.ALERT:
@@ -118,13 +119,6 @@ func _process(delta: float) -> void:
 		body.look_at(%Player.global_position, Vector3.UP)
 
 
-func _on_alert_area_body_entered(_body: Node3D) -> void:
-	state = GnomeState.WILL_JUMP_TO_HIDING
-	jump_delay = jump_delay_duration
-	jump_progress = 0.0
-	jump_start_height = body.global_position.y
-
-
 func _schedule_new_idle_target() -> void:
 	# Choose any yaw immediately (instant rotation)
 	var new_yaw = rng.randf_range(-PI, PI)
@@ -133,11 +127,23 @@ func _schedule_new_idle_target() -> void:
 	idle_duration = rng.randf_range(idle_rotation_min_interval, idle_rotation_max_interval)
 
 
+func _on_alert_area_body_entered(_body: Node3D) -> void:
+	state = GnomeState.WILL_JUMP_TO_HIDING
+	jump_delay = jump_delay_duration
+	jump_progress = 0.0
+	jump_start_height = body.global_position.y
+
+
 func _on_alert_area_body_exited(_body: Node3D) -> void:
 	state = GnomeState.WILL_JUMP_TO_IDLE
 	jump_delay = jump_delay_duration
 	jump_progress = 0.0
 	jump_start_height = body.global_position.y
+
+
+func _play_scheming() -> void:
+	if !scheming.playing:
+		scheming.play()
 
 
 func is_grabbable() -> bool:

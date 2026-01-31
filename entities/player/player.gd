@@ -9,13 +9,30 @@ extends CharacterBody3D
 
 @export var grab_cooldown: float = 0.3
 
-var camera: Camera3D
+@onready
+var camera: Camera3D = $Camera3D
+
+@onready
+var sneak_audio: AudioStreamPlayer3D = $SneakAudio
+@onready
+var walk_audio: AudioStreamPlayer3D = $WalkAudio
+@onready
+var run_audio: AudioStreamPlayer3D = $RunAudio
+
+var _current_movement_audio: AudioStreamPlayer3D = null
+
 var mouse_captured: bool = false
 var _grab_on_cooldown: bool = false
 
 # Sprint energy system
 @export var max_energy: float = 100.0
 @export var sprint_cost_per_second: float = 40.0
+
+# Walking cadence (seconds per step scales with speed)
+@export var walk_step_base_interval: float = 0.5
+@export var walk_step_min_interval: float = 0.2
+@export var walk_step_max_interval: float = 0.75
+var _walk_step_timer: float = 0.0
 @export var energy_recovery_rate: float = 10.0
 @export var energy_recovery_delay: float = 2.0
 
@@ -25,8 +42,6 @@ var _is_sprinting: bool = false
 
 
 func _ready() -> void:
-	camera = $Camera3D
-	
 	# Initialize energy
 	energy = max_energy
 
@@ -52,6 +67,7 @@ func _process(delta: float) -> void:
 		velocity.y -= gravity * delta
 	
 	move_and_slide()
+
 
 
 func handle_movement(delta: float) -> void:
@@ -106,6 +122,62 @@ func handle_movement(delta: float) -> void:
 	var move_dir = (forward * input_dir.z + right * input_dir.x) * speed
 	velocity.x = move_dir.x
 	velocity.z = move_dir.z
+
+	var should_play = is_moving
+	_update_movement_audio(should_play)
+	_handle_walk_cadence(get_process_delta_time())
+
+
+func _update_movement_audio(should_play: bool) -> void:
+	var desired: AudioStreamPlayer3D = null
+	if not should_play:
+		desired = null
+	elif Input.is_action_pressed("sneak"):
+		desired = sneak_audio
+	elif _is_sprinting:
+		desired = run_audio
+	else:
+		# Walking footsteps are handled by cadence; don't play continuous walk audio
+		desired = null
+
+	# Stop current if we no longer want it
+	if desired == null:
+		if _current_movement_audio != null and _current_movement_audio.is_playing():
+			_current_movement_audio.stop()
+		_current_movement_audio = null
+		return
+
+	# If switching, stop previous
+	if _current_movement_audio == desired:
+		if not desired.is_playing():
+			desired.play()
+		return
+
+	if _current_movement_audio != null and _current_movement_audio.is_playing():
+		_current_movement_audio.stop()
+
+	_current_movement_audio = desired
+	if not desired.is_playing():
+		desired.play()
+
+
+func _handle_walk_cadence(delta: float) -> void:
+	var horiz_speed = Vector2(velocity.x, velocity.z).length()
+	var moving = horiz_speed > 0.1 and is_on_floor()
+	# If sneaking or sprinting, cadence shouldn't play
+	if Input.is_action_pressed("sneak") or _is_sprinting or not moving:
+		if walk_audio.is_playing():
+			walk_audio.stop()
+		_walk_step_timer = 0.0
+		return
+
+	var interval = walk_step_base_interval * (base_speed / max(horiz_speed, 0.01))
+	interval = clamp(interval, walk_step_min_interval, walk_step_max_interval)
+
+	_walk_step_timer -= delta
+	if _walk_step_timer <= 0.0:
+		walk_audio.play()
+		_walk_step_timer = interval
 
 
 func _input(event: InputEvent) -> void:

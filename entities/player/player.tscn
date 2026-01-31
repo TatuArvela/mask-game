@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://rvf074qch17a"]
 
 [ext_resource type="Script" uid="uid://dl6djd7ub310d" path="res://entities/player/player.gd" id="1_symyc"]
+[ext_resource type="AudioStream" uid="uid://ngg8ev5jy4cx" path="res://sound_effects/sneak_1.wav" id="2_fkugw"]
+[ext_resource type="AudioStream" uid="uid://dqijt84fsej4" path="res://sound_effects/walk_2.wav" id="3_8fjmc"]
+[ext_resource type="AudioStream" uid="uid://dbddct37moikb" path="res://sound_effects/snowrun_1.wav" id="5_26q78"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5aw1d"]
 radius = 0.2
@@ -28,3 +31,13 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerGrabArea" unique_id=494806017]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -1)
 shape = SubResource("BoxShape3D_symyc")
+
+[node name="SneakAudio" type="AudioStreamPlayer3D" parent="." unique_id=2090687329]
+stream = ExtResource("2_fkugw")
+
+[node name="WalkAudio" type="AudioStreamPlayer3D" parent="." unique_id=1713822967]
+stream = ExtResource("3_8fjmc")
+
+[node name="RunAudio" type="AudioStreamPlayer3D" parent="." unique_id=2043861689]
+stream = ExtResource("5_26q78")
+pitch_scale = 0.9
