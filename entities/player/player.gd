@@ -1,6 +1,9 @@
 extends CharacterBody3D
 
-@export var speed: float = 100.0
+@export var sneak_speed: float = 1.0
+@export var base_speed: float = 5.0
+@export var run_speed: float = 10.0
+
 @export var mouse_sensitivity: float = 0.01
 @export var gravity: float = 9.8
 
@@ -34,6 +37,12 @@ func _process(delta: float) -> void:
 
 func handle_movement(_delta: float) -> void:
 	var input_dir = Vector3.ZERO
+	var speed = base_speed
+
+	if Input.is_action_pressed("sneak"):
+		speed = sneak_speed
+	elif Input.is_action_pressed("run"):
+		speed = run_speed
 	
 	if Input.is_action_pressed("forward"):
 		input_dir.z -= 1
