@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://j7clwuarlmuf"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fplnv"]
+particle_flag_disable_z = true
+angle_min = -594.5
+angle_max = 576.30005
+direction = Vector3(0, 0.48, 0)
+spread = 112.164
+angular_velocity_min = -50.950016
+angular_velocity_max = -50.950016
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -9.210002
+linear_accel_max = -4.0800023
+radial_accel_min = 12.709997
+radial_accel_max = 24.469997
+tangential_accel_min = -12.220002
+tangential_accel_max = 17.099997
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fplnv"]
+albedo_color = Color(0.6879644, 0.6456375, 1, 1)
+emission_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_rw23a"]
+material = SubResource("StandardMaterial3D_fplnv")
+size = Vector3(0.04, 0.07, -0.09)
+
+[sub_resource type="AudioStreamWAV" id="AudioStreamWAV_d24mu"]
+
+[node name="ParticleBlingBling" type="Node3D" unique_id=1838534437]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=852091194]
+emitting = false
+amount = 586
+lifetime = 1.22
+one_shot = true
+explosiveness = 0.59
+randomness = 0.24
+process_material = SubResource("ParticleProcessMaterial_fplnv")
+draw_pass_1 = SubResource("BoxMesh_rw23a")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=1823544277]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.016694069, -0.0031104088, 0)
+emitting = false
+amount = 586
+lifetime = 1.22
+one_shot = true
+explosiveness = 0.59
+randomness = 0.24
+process_material = SubResource("ParticleProcessMaterial_fplnv")
+draw_pass_1 = SubResource("BoxMesh_rw23a")
+
+[node name="audioeffect" type="AudioStreamPlayer" parent="." unique_id=320028805]
+stream = SubResource("AudioStreamWAV_d24mu")
+autoplay = true
