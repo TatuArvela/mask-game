@@ -26,7 +26,10 @@ func _process(delta: float) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			mouse_captured = true
-	
+
+	if Input.is_action_pressed("grab"):
+		grab()
+
 	handle_movement(delta)
 	
 	if not is_on_floor():
@@ -70,6 +73,13 @@ func handle_movement(_delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if not mouse_captured:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			mouse_captured = true
+		else:
+			grab()
+
 	if event is InputEventMouseMotion and mouse_captured:
 		var motion = event as InputEventMouseMotion
 		
@@ -79,3 +89,14 @@ func _input(event: InputEvent) -> void:
 		
 		var camera_rot = camera.rotation.x
 		camera.rotation.x = clamp(camera_rot, -PI / 2, PI / 2)
+
+
+func grab() -> void:
+	var areas = $PlayerGrabArea.get_overlapping_areas()
+	for area in areas:
+		if area.name == "GnomeGrabArea":
+			# Gnome -> GnomeBody -> GnomeGrabArea
+			var gnome = area.get_parent().get_parent()
+			if gnome.is_grabbable():
+				# Delete gnome here
+				gnome.queue_free()

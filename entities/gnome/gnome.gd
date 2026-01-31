@@ -1,9 +1,15 @@
 extends Node3D
 
-var body: StaticBody3D
-var alert_area: Area3D
-var grab_area: Area3D
+@onready
+var body: StaticBody3D = $GnomeBody
 
+@onready
+var grab_area: Area3D = $GrabArea
+
+@onready
+var gnome_mesh: Node3D = $GnomeBody/gnome
+
+@export var alert_area: Area3D
 @export var hiding_spot: Marker3D
 @export var idle_spot: Marker3D
 
@@ -15,7 +21,6 @@ var grab_area: Area3D
 enum GnomeState {
 	IDLE,
 	ALERT,
-	GRABBED,
 	WILL_JUMP_TO_IDLE,
 	WILL_JUMP_TO_HIDING,
 	JUMP_TO_IDLE,
@@ -26,20 +31,15 @@ var state: GnomeState = GnomeState.WILL_JUMP_TO_IDLE
 var jump_delay: float = 0.0
 var jump_progress: float = 0.0
 var jump_start_height: float = 0.0
+var debug_material: StandardMaterial3D
 
 func _ready() -> void:
-	body = $GnomeBody
-	alert_area = $AlertArea
-	grab_area = $GrabArea
-
-	if not hiding_spot:
-		push_error("Hiding Spot not assigned for Gnome entity.")
-
-	if not idle_spot:
-		push_error("Idle Spot not assigned for Gnome entity.")
-
 	if hiding_spot:
 		body.global_position = hiding_spot.global_position
+	
+	# Setup debug material for idle state
+	debug_material = StandardMaterial3D.new()
+	debug_material.albedo_color = Color.GREEN
 
 
 func _process(delta: float) -> void:
@@ -51,8 +51,12 @@ func _process(delta: float) -> void:
 		elif state == GnomeState.WILL_JUMP_TO_HIDING:
 			state = GnomeState.JUMP_TO_HIDING
 	
-	if state == GnomeState.IDLE:
-		pass
+	if is_grabbable():
+		# Indicate idle state with debug color (green)
+		_set_mesh_material(gnome_mesh, debug_material)
+	else:
+		# Remove debug material when not idle
+		_clear_mesh_material(gnome_mesh)
 
 	if state == GnomeState.ALERT:
 		pass
@@ -92,23 +96,45 @@ func _process(delta: float) -> void:
 			jump_progress = 0.0
 			body.global_position.y = 0.0
 			state = GnomeState.ALERT
-	
-	if state == GnomeState.GRABBED:
-		# Logic for when the gnome is grabbed can be implemented here
-		pass
 
 
 func _on_alert_area_body_entered(_body: Node3D) -> void:
-	if state != GnomeState.GRABBED:
-		state = GnomeState.WILL_JUMP_TO_HIDING
-		jump_delay = jump_delay_duration
-		jump_progress = 0.0
-		jump_start_height = body.global_position.y
+	state = GnomeState.WILL_JUMP_TO_HIDING
+	jump_delay = jump_delay_duration
+	jump_progress = 0.0
+	jump_start_height = body.global_position.y
 
 
 func _on_alert_area_body_exited(_body: Node3D) -> void:
-	if state != GnomeState.GRABBED:
-		state = GnomeState.WILL_JUMP_TO_IDLE
-		jump_delay = jump_delay_duration
-		jump_progress = 0.0
-		jump_start_height = body.global_position.y
+	state = GnomeState.WILL_JUMP_TO_IDLE
+	jump_delay = jump_delay_duration
+	jump_progress = 0.0
+	jump_start_height = body.global_position.y
+
+
+func is_grabbable() -> bool:
+	if state == GnomeState.IDLE or state == GnomeState.WILL_JUMP_TO_HIDING or state == GnomeState.JUMP_TO_IDLE:
+		return true
+	return false
+
+
+func _set_mesh_material(node: Node3D, material: Material) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance = node as MeshInstance3D
+		for i in range(mesh_instance.get_surface_override_material_count()):
+			mesh_instance.set_surface_override_material(i, material)
+	
+	for child in node.get_children():
+		if child is Node3D:
+			_set_mesh_material(child as Node3D, material)
+
+
+func _clear_mesh_material(node: Node3D) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance = node as MeshInstance3D
+		for i in range(mesh_instance.get_surface_override_material_count()):
+			mesh_instance.set_surface_override_material(i, null)
+	
+	for child in node.get_children():
+		if child is Node3D:
+			_clear_mesh_material(child as Node3D)
