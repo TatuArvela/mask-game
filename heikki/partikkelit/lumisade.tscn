@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://nh430rmpdj0i"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7dm0k"]
+lifetime_randomness = 0.13
+emission_shape = 3
+emission_box_extents = Vector3(1, 0.05, 1)
+direction = Vector3(1, -1, 0)
+gravity = Vector3(0, -0.19, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+
+[sub_resource type="SphereMesh" id="SphereMesh_ig7tw"]
+lightmap_size_hint = Vector2i(3, 3)
+radius = 0.05
+height = 0.1
+radial_segments = 4
+rings = 1
+is_hemisphere = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ig7tw"]
+lifetime_randomness = 0.23
+gravity = Vector3(0, 1, 0)
+turbulence_enabled = true
+turbulence_noise_strength = 2.57
+
+[sub_resource type="SphereMesh" id="SphereMesh_0xm2m"]
+height = 0.35
+radial_segments = 6
+
+[node name="lumisade" type="Node3D" unique_id=1536174124]
+
+[node name="rain" type="GPUParticles3D" parent="." unique_id=170497751]
+transform = Transform3D(3.4788496, 0, 0, 0, 1.5284605, 0, 0, 0, 4.930309, 0, 1.1312244, 0)
+amount = 1000
+lifetime = 57.559999999999995
+fixed_fps = 0
+trail_lifetime = 50.0
+process_material = SubResource("ParticleProcessMaterial_7dm0k")
+draw_pass_1 = SubResource("SphereMesh_ig7tw")
+
+[node name="ufo" type="GPUParticles3D" parent="." unique_id=357271940]
+transform = Transform3D(3.4788496, 0, 0, 0, 1.5284605, 0, 0, 0, 4.930309, 0, 1.6932783, 0)
+amount = 1
+lifetime = 600.0
+fixed_fps = 0
+trail_lifetime = 50.0
+process_material = SubResource("ParticleProcessMaterial_ig7tw")
+draw_pass_1 = SubResource("SphereMesh_0xm2m")
