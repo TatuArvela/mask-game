@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://rynlexmmmf0m" path="res://entities/gnome/alert_area.tscn" id="10_ioiol"]
 [ext_resource type="PackedScene" uid="uid://b7rbiwqgyv6gf" path="res://scenery/weeds.glb" id="10_otg31"]
 [ext_resource type="PackedScene" uid="uid://c58feo7tltkbc" path="res://scenery/foliage.glb" id="15_27jqr"]
+[ext_resource type="PackedScene" uid="uid://deq07o4oj2k4e" path="res://scenery/bgtrees.glb" id="15_n7ikp"]
 [ext_resource type="PackedScene" uid="uid://dd60noym4427c" path="res://scenery/grass.glb" id="16_3myh3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mndh0"]
@@ -147,7 +148,7 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/outline_size = 9
 theme_override_font_sizes/font_size = 36
-text = "30"
+text = "90"
 
 [node name="WinLoseContainer" type="CenterContainer" parent="Hud" unique_id=474080862]
 layout_mode = 0
@@ -260,7 +261,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
 
 [node name="River" parent="." unique_id=226933593 instance=ExtResource("6_vrddd")]
 
-[node name="Trees" parent="." unique_id=876479878 instance=ExtResource("5_doi4a")]
+[node name="Trees" parent="." unique_id=1532638155 instance=ExtResource("5_doi4a")]
+
+[node name="BgTrees" parent="." unique_id=1908191870 instance=ExtResource("15_n7ikp")]
 
 [node name="Flowers" parent="." unique_id=778773527 instance=ExtResource("9_mj4xq")]
 
