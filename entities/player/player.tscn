@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://dl6djd7ub310d" path="res://entities/player/player.gd" id="1_symyc"]
 [ext_resource type="AudioStream" uid="uid://ngg8ev5jy4cx" path="res://sound_effects/sneak_1.wav" id="2_fkugw"]
 [ext_resource type="AudioStream" uid="uid://dqijt84fsej4" path="res://sound_effects/walk_2.wav" id="3_8fjmc"]
+[ext_resource type="PackedScene" uid="uid://nq0wnk4djstl" path="res://entities/player/right_hand.glb" id="3_26q78"]
 [ext_resource type="AudioStream" uid="uid://r5eroyv7cmi" path="res://sound_effects/got_it_1.wav" id="5_8fjmc"]
 [ext_resource type="AudioStream" uid="uid://dbddct37moikb" path="res://sound_effects/snowrun_1.wav" id="5_26q78"]
 [ext_resource type="AudioStream" uid="uid://4w3u5f3xwn2s" path="res://sound_effects/miss_1.wav" id="6_qiwj3"]
-[ext_resource type="PackedScene" uid="uid://vuns5bb8vomp" path="res://entities/player/hand.glb" id="7_qiwj3"]
+[ext_resource type="PackedScene" uid="uid://vuns5bb8vomp" path="res://entities/player/left_hand.glb" id="7_qiwj3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5aw1d"]
 radius = 0.2
@@ -27,7 +28,12 @@ shape = SubResource("CapsuleShape3D_5aw1d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="LeftHand" parent="Camera3D" unique_id=2003022841 instance=ExtResource("7_qiwj3")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.68150175, -0.6634853, 0.28459835)
+unique_name_in_owner = true
+transform = Transform3D(0.49809736, 0, -0.04357787, 0, 0.5, 0, 0.04357787, 0, 0.49809736, -0.68150175, -0.6634853, 0.28459835)
+
+[node name="RightHand" parent="Camera3D" unique_id=2092376373 instance=ExtResource("3_26q78")]
+unique_name_in_owner = true
+transform = Transform3D(0.49809736, 0, 0.04357787, 0, 0.5, 0, -0.04357787, 0, 0.49809736, 0.682, -0.663, 0.285)
 
 [node name="PlayerGrabArea" type="Area3D" parent="." unique_id=797273529]
 collision_layer = 4

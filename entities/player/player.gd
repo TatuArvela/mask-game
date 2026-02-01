@@ -9,6 +9,11 @@ extends CharacterBody3D
 
 @export var grab_cooldown: float = 0.3
 
+@export var hand_bounce_amplitude_deg: float = 3.0
+@export var hand_bounce_frequency: float = 3.0
+@export var hand_bounce_smooth: float = 8.0
+@export var hand_bounce_run_multiplier: float = 3.0
+
 @onready
 var camera: Camera3D = $Camera3D
 
@@ -19,13 +24,21 @@ var walk_audio: AudioStreamPlayer3D = $WalkAudio
 @onready
 var run_audio: AudioStreamPlayer3D = $RunAudio
 
+@onready
+var left_hand: Node3D = %LeftHand
+@onready
+var right_hand: Node3D = %RightHand
+
 var _current_movement_audio: AudioStreamPlayer3D = null
+
+var _hand_bounce_time: float = 0.0
+var _hand_current_angle: float = 0.0
 
 var _grab_on_cooldown: bool = false
 
-# Sprint energy system
+# Run energy system
 @export var max_energy: float = 100.0
-@export var sprint_cost_per_second: float = 40.0
+@export var run_cost_per_second: float = 20.0
 
 # Walking cadence (seconds per step scales with speed)
 @export var walk_step_base_interval: float = 0.5
@@ -36,8 +49,8 @@ var _walk_step_timer: float = 0.0
 @export var energy_recovery_delay: float = 2.0
 
 var energy: float = 0.0
-var _sprint_recovery_timer: float = 0.0
-var _is_sprinting: bool = false
+var _run_recovery_timer: float = 0.0
+var _is_running: bool = false
 
 
 func _ready() -> void:
@@ -55,6 +68,8 @@ func _process(delta: float) -> void:
 		velocity.y -= gravity * delta
 	
 	move_and_slide()
+
+	_update_hand_bounce(delta)
 
 
 func handle_movement(delta: float) -> void:
@@ -84,19 +99,19 @@ func handle_movement(delta: float) -> void:
 	if Input.is_action_pressed("sneak"):
 		speed = sneak_speed
 	elif Input.is_action_pressed("run") and is_moving and energy > 0.0:
-		# Sprint
+		# Run
 		speed = run_speed
-		_is_sprinting = true
-		energy -= sprint_cost_per_second * delta
+		_is_running = true
+		energy -= run_cost_per_second * delta
 		energy = max(0.0, energy)
-		_sprint_recovery_timer = 0.0
+		_run_recovery_timer = 0.0
 	else:
-		_is_sprinting = false
+		_is_running = false
 
-	# Recovery when not sprinting after delay
-	if not _is_sprinting:
-		_sprint_recovery_timer += delta
-		if _sprint_recovery_timer >= energy_recovery_delay:
+	# Recovery when not running after delay
+	if not _is_running:
+		_run_recovery_timer += delta
+		if _run_recovery_timer >= energy_recovery_delay:
 			energy = min(max_energy, energy + energy_recovery_rate * delta)
 
 	var forward = camera.global_transform.basis.z
@@ -122,7 +137,7 @@ func _update_movement_audio(should_play: bool) -> void:
 		desired = null
 	elif Input.is_action_pressed("sneak"):
 		desired = sneak_audio
-	elif _is_sprinting:
+	elif _is_running:
 		desired = run_audio
 	else:
 		# Walking footsteps are handled by cadence; don't play continuous walk audio
@@ -152,8 +167,8 @@ func _update_movement_audio(should_play: bool) -> void:
 func _handle_walk_cadence(delta: float) -> void:
 	var horiz_speed = Vector2(velocity.x, velocity.z).length()
 	var moving = horiz_speed > 0.1 and is_on_floor()
-	# If sneaking or sprinting, cadence shouldn't play
-	if Input.is_action_pressed("sneak") or _is_sprinting or not moving:
+	# If sneaking or running, cadence shouldn't play
+	if Input.is_action_pressed("sneak") or _is_running or not moving:
 		if walk_audio.is_playing():
 			walk_audio.stop()
 		_walk_step_timer = 0.0
@@ -166,6 +181,32 @@ func _handle_walk_cadence(delta: float) -> void:
 	if _walk_step_timer <= 0.0:
 		walk_audio.play()
 		_walk_step_timer = interval
+
+
+func _update_hand_bounce(delta: float) -> void:
+	var horiz_speed = Vector2(velocity.x, velocity.z).length()
+	var moving_factor = 0.0
+	if is_on_floor():
+		moving_factor = clamp(horiz_speed / max(base_speed, 0.01), 0.0, 1.0)
+
+	if moving_factor <= 0.01:
+		_hand_current_angle = lerp(_hand_current_angle, 0.0, clamp(delta * hand_bounce_smooth, 0.0, 1.0))
+		left_hand.rotation_degrees.x = _hand_current_angle
+		left_hand.rotation_degrees.y = _hand_current_angle
+		right_hand.rotation_degrees.x = - _hand_current_angle
+		right_hand.rotation_degrees.y = _hand_current_angle
+		return
+
+	_hand_bounce_time += delta
+	var angle_rad = sin(_hand_bounce_time * hand_bounce_frequency * PI * 2.0)
+	var target_deg = angle_rad * hand_bounce_amplitude_deg * moving_factor * (hand_bounce_run_multiplier if _is_running else 1.0)
+
+	_hand_current_angle = lerp(_hand_current_angle, target_deg, clamp(delta * hand_bounce_smooth, 0.0, 1.0))
+
+	left_hand.rotation_degrees.x = _hand_current_angle
+	left_hand.rotation_degrees.y = _hand_current_angle
+	right_hand.rotation_degrees.x = - _hand_current_angle
+	right_hand.rotation_degrees.y = _hand_current_angle
 
 
 func _input(event: InputEvent) -> void:

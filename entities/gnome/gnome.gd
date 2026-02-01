@@ -5,7 +5,9 @@ var body: StaticBody3D = $GnomeBody
 @onready
 var gnome_mesh: Node3D = $GnomeBody/gnome
 @onready
-var scheming: AudioStreamPlayer3D = $Scheming
+var scheming_audio: AudioStreamPlayer3D = $SchemingAudio
+@onready
+var snow_whoosh_audio: AudioStreamPlayer3D = $SnowWhooshAudio
 
 @export var alert_area: Area3D
 @export var hiding_spot: Marker3D
@@ -79,6 +81,7 @@ func _process(delta: float) -> void:
 		pass
 
 	if state == GnomeState.JUMP_TO_IDLE:
+		snow_whoosh_audio.play()
 		var distance = body.global_position.distance_to(idle_spot.global_position)
 		if distance > stop_distance:
 			jump_progress += movement_speed * delta / distance
@@ -97,6 +100,7 @@ func _process(delta: float) -> void:
 			state = GnomeState.IDLE
 	
 	if state == GnomeState.JUMP_TO_HIDING:
+		snow_whoosh_audio.play()
 		var distance = body.global_position.distance_to(hiding_spot.global_position)
 		if distance > stop_distance:
 			jump_progress += movement_speed * delta / distance
@@ -141,8 +145,8 @@ func _on_alert_area_body_exited(_body: Node3D) -> void:
 
 
 func _play_scheming() -> void:
-	if !scheming.playing:
-		scheming.play()
+	if !scheming_audio.playing:
+		scheming_audio.play()
 
 
 func is_grabbable() -> bool:

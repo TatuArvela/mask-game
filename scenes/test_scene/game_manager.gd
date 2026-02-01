@@ -51,6 +51,7 @@ func _process(delta: float) -> void:
 		%GameOverLabel.text = "Paused"
 	
 	if is_paused or is_game_over:
+		mouse_captured = false
 		%GameOverLabel.show()
 		%GameOverButtonContainer.show()
 		%Gnomes.process_mode = Node.PROCESS_MODE_DISABLED
