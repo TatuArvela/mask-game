@@ -43,6 +43,9 @@ volumetric_fog_ambient_inject = 0.98
 
 [node name="TestScene" type="Node" unique_id=1051480340]
 
+[node name="Player" parent="." unique_id=153770063 instance=ExtResource("6_ox5rt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.308203, 1.520216, 20.541727)
+
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=472530435]
 mesh = SubResource("PlaneMesh_3anks")
 
@@ -95,9 +98,6 @@ environment = SubResource("Environment_l4ihe")
 
 [node name="River" parent="." unique_id=2055334123 instance=ExtResource("5_4w2xd")]
 visible = false
-
-[node name="Player" parent="." unique_id=153770063 instance=ExtResource("6_ox5rt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.308203, 1.520216, 20.541727)
 
 [node name="right_hand_player" parent="." unique_id=1856915965 instance=ExtResource("7_2ox7w")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.23183012, 20.790533)
