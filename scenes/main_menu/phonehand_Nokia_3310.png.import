@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cub641hokmr7i"
-path.s3tc="res://.godot/imported/hand_sleeve.png-966292d2938c20fdec73dc65627a3597.s3tc.ctex"
+uid="uid://cnevj6vx57fet"
+path.s3tc="res://.godot/imported/phonehand_Nokia_3310.png-589fad13bcb3ec9268bc8c566ab442e4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "a17ea37e2eb216e013f6480153847061"
+"md5": "14baba9365f9712b9c0a545f5be389c3"
 }
 
 [deps]
 
-source_file="res://entities/player/hand_sleeve.png"
-dest_files=["res://.godot/imported/hand_sleeve.png-966292d2938c20fdec73dc65627a3597.s3tc.ctex"]
+source_file="res://scenes/main_menu/phonehand_Nokia_3310.png"
+dest_files=["res://.godot/imported/phonehand_Nokia_3310.png-589fad13bcb3ec9268bc8c566ab442e4.s3tc.ctex"]
 
 [params]
 

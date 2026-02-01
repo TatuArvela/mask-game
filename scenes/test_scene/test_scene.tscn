@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://b2h6smbg1i78" path="res://scenes/test_scene/game_manager.gd" id="10_g451t"]
 [ext_resource type="PackedScene" uid="uid://rynlexmmmf0m" path="res://entities/gnome/alert_area.tscn" id="10_ioiol"]
 [ext_resource type="PackedScene" uid="uid://b7rbiwqgyv6gf" path="res://scenery/weeds.glb" id="10_otg31"]
+[ext_resource type="PackedScene" uid="uid://c58feo7tltkbc" path="res://scenery/foliage.glb" id="15_27jqr"]
+[ext_resource type="PackedScene" uid="uid://dd60noym4427c" path="res://scenery/grass.glb" id="16_3myh3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mndh0"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -241,15 +243,19 @@ shape = SubResource("WorldBoundaryShape3D_8pyld")
 [node name="Snowfall" parent="." unique_id=1282455166 instance=ExtResource("4_a0rq3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
 
-[node name="SnowBanks" parent="." unique_id=1703543491 instance=ExtResource("4_l4ihe")]
+[node name="SnowBanks" parent="." unique_id=369598632 instance=ExtResource("4_l4ihe")]
 
-[node name="Trees" parent="." unique_id=966723491 instance=ExtResource("5_doi4a")]
+[node name="River" parent="." unique_id=226933593 instance=ExtResource("6_vrddd")]
 
-[node name="River" parent="." unique_id=1960711046 instance=ExtResource("6_vrddd")]
+[node name="Trees" parent="." unique_id=876479878 instance=ExtResource("5_doi4a")]
 
-[node name="Flowers" parent="." unique_id=179631276 instance=ExtResource("9_mj4xq")]
+[node name="Flowers" parent="." unique_id=778773527 instance=ExtResource("9_mj4xq")]
 
-[node name="Weeds" parent="." unique_id=715697305 instance=ExtResource("10_otg31")]
+[node name="Weeds" parent="." unique_id=848616879 instance=ExtResource("10_otg31")]
+
+[node name="Foliage" parent="." unique_id=281115570 instance=ExtResource("15_27jqr")]
+
+[node name="Grass" parent="." unique_id=1251830269 instance=ExtResource("16_3myh3")]
 
 [node name="Player" parent="." unique_id=153770063 instance=ExtResource("1_8pyld")]
 unique_name_in_owner = true
@@ -257,7 +263,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.977701, 1.520216, 20.5417
 
 [node name="Gnomes" type="Node" parent="." unique_id=148694068]
 
-[node name="Gnome1" parent="Gnomes" unique_id=1379355462 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+[node name="Gnome1" parent="Gnomes" unique_id=1337338378 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.132262, 0, 6.813633)
 hiding_spot = NodePath("HidingSpot")
 idle_spot = NodePath("IdleSpot")
@@ -270,7 +276,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
 
 [node name="AlertArea" parent="Gnomes/Gnome1" unique_id=1138878469 instance=ExtResource("10_ioiol")]
 
-[node name="Gnome2" parent="Gnomes" unique_id=1337338378 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+[node name="Gnome2" parent="Gnomes" unique_id=1086748022 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
 transform = Transform3D(0.40939763, 0, 0.9123561, 0, 1, 0, -0.9123561, 0, 0.40939763, -13.288012, 0, -14.85989)
 hiding_spot = NodePath("HidingSpot")
 idle_spot = NodePath("IdleSpot")
@@ -283,7 +289,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
 
 [node name="AlertArea" parent="Gnomes/Gnome2" unique_id=1327917895 instance=ExtResource("10_ioiol")]
 
-[node name="Gnome3" parent="Gnomes" unique_id=2040221941 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+[node name="Gnome3" parent="Gnomes" unique_id=439459335 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
 transform = Transform3D(0.37497875, 0, 0.92703336, 0, 1, 0, -0.92703336, 0, 0.37497875, 6.8233395, 0, -14.024126)
 hiding_spot = NodePath("HidingSpot")
 idle_spot = NodePath("IdleSpot")
@@ -296,7 +302,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
 
 [node name="AlertArea" parent="Gnomes/Gnome3" unique_id=323920459 instance=ExtResource("10_ioiol")]
 
-[node name="Gnome4" parent="Gnomes" unique_id=635359709 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+[node name="Gnome4" parent="Gnomes" unique_id=26851558 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
 transform = Transform3D(-0.8030047, 0, 0.5959727, 0, 1, 0, -0.5959727, 0, -0.8030047, 18.409128, 0, -18.828417)
 hiding_spot = NodePath("HidingSpot")
 idle_spot = NodePath("IdleSpot")
@@ -309,7 +315,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004737854, 0, -0.03463316)
 
 [node name="AlertArea" parent="Gnomes/Gnome4" unique_id=190320968 instance=ExtResource("10_ioiol")]
 
-[node name="Gnome5" parent="Gnomes" unique_id=322659902 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
+[node name="Gnome5" parent="Gnomes" unique_id=1020638885 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
 transform = Transform3D(-0.92319685, 0, -0.3843274, 0, 1, 0, 0.3843274, 0, -0.92319685, 22.038559, 0, 13.920183)
 hiding_spot = NodePath("HidingSpot")
 idle_spot = NodePath("IdleSpot")
