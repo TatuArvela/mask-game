@@ -21,7 +21,6 @@ var run_audio: AudioStreamPlayer3D = $RunAudio
 
 var _current_movement_audio: AudioStreamPlayer3D = null
 
-var mouse_captured: bool = false
 var _grab_on_cooldown: bool = false
 
 # Sprint energy system
@@ -45,19 +44,8 @@ func _ready() -> void:
 	# Initialize energy
 	energy = max_energy
 
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	mouse_captured = true
-
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		if mouse_captured:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			mouse_captured = false
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			mouse_captured = true
-
 	if Input.is_action_pressed("grab"):
 		grab()
 
@@ -70,7 +58,8 @@ func _process(delta: float) -> void:
 
 
 func handle_movement(delta: float) -> void:
-	if (%GameManager.is_game_over):
+	# The is_paused could be exploitable in some other game, but here it's fine
+	if (%GameManager.is_game_over or %GameManager.is_paused):
 		velocity.x = 0.0
 		velocity.z = 0.0
 		return
@@ -180,13 +169,13 @@ func _handle_walk_cadence(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if %GameManager.is_game_over:
+	if %GameManager.is_game_over or %GameManager.is_paused:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		grab()
 
-	if event is InputEventMouseMotion and mouse_captured:
+	if event is InputEventMouseMotion and %GameManager.mouse_captured:
 		var motion = event as InputEventMouseMotion
 		
 		rotate_y(-motion.relative.x * mouse_sensitivity)

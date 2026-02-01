@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://rvf074qch17a" path="res://entities/player/player.tscn" id="1_8pyld"]
 [ext_resource type="Texture2D" uid="uid://dk28hu44mqq3n" path="res://materials/snow.png" id="1_ork3v"]
+[ext_resource type="Script" uid="uid://b6ooa1ah1v00k" path="res://scenes/test_scene/restart_button.gd" id="2_2208h"]
 [ext_resource type="Texture2D" uid="uid://4jc5kgwsqhic" path="res://materials/MaskGame-MAPwithElfs.png" id="2_l4ihe"]
 [ext_resource type="AudioStream" uid="uid://b6tmye1apbqui" path="res://music/kuumotus_musiikki.wav" id="2_otg31"]
 [ext_resource type="AudioStream" uid="uid://12jvvgiingff" path="res://music/gnome_rave.wav" id="3_hqp6l"]
+[ext_resource type="Script" uid="uid://bubu76td7cs2u" path="res://scenes/test_scene/quit_button.gd" id="3_n7ikp"]
 [ext_resource type="PackedScene" uid="uid://besyrekpdlapw" path="res://scenery/collision_walls.tscn" id="3_ork3v"]
 [ext_resource type="AudioStream" uid="uid://drtvqhulxba14" path="res://sound_effects/winter_wind.wav" id="3_q6ea6"]
 [ext_resource type="PackedScene" uid="uid://nh430rmpdj0i" path="res://scenery/snowfall.tscn" id="4_a0rq3"]
@@ -86,7 +88,10 @@ offset_top = 10.0
 offset_right = 1910.0
 offset_bottom = 1070.0
 
-[node name="WinLabel" type="Label" parent="Hud/WinLoseContainer" unique_id=73683996]
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/WinLoseContainer" unique_id=500287432]
+layout_mode = 2
+
+[node name="GameOverLabel" type="Label" parent="Hud/WinLoseContainer/VBoxContainer" unique_id=73683996]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 8
@@ -95,14 +100,22 @@ text = "You're winner!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LoseLabel" type="Label" parent="Hud/WinLoseContainer" unique_id=799728407]
+[node name="GameOverButtonContainer" type="HBoxContainer" parent="Hud/WinLoseContainer/VBoxContainer" unique_id=514069205]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 64
-text = "It is too late now..."
-horizontal_alignment = 1
-vertical_alignment = 1
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="Hud/WinLoseContainer/VBoxContainer/GameOverButtonContainer" unique_id=601816107]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Restart"
+script = ExtResource("2_2208h")
+
+[node name="QuitButton" type="Button" parent="Hud/WinLoseContainer/VBoxContainer/GameOverButtonContainer" unique_id=1433973475]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+script = ExtResource("3_n7ikp")
 
 [node name="GameplayContainer" type="MarginContainer" parent="Hud" unique_id=1982121150]
 unique_name_in_owner = true
@@ -262,6 +275,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.977701, 1.520216, 20.541727)
 
 [node name="Gnomes" type="Node" parent="." unique_id=148694068]
+unique_name_in_owner = true
 
 [node name="Gnome1" parent="Gnomes" unique_id=1337338378 node_paths=PackedStringArray("hiding_spot", "idle_spot") instance=ExtResource("6_doi4a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.132262, 0, 6.813633)

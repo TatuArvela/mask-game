@@ -59,18 +59,18 @@ mesh = SubResource("PlaneMesh_m5tit")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=647825118]
 environment = SubResource("Environment_et0bd")
 
-[node name="SnowBanks" parent="." unique_id=2103701614 instance=ExtResource("4_fvj13")]
+[node name="SnowBanks" parent="." unique_id=369598632 instance=ExtResource("4_fvj13")]
 
-[node name="Trees" parent="." unique_id=656096379 instance=ExtResource("5_21d2y")]
+[node name="Trees" parent="." unique_id=876479878 instance=ExtResource("5_21d2y")]
 
-[node name="River" parent="." unique_id=734036317 instance=ExtResource("6_nloix")]
+[node name="River" parent="." unique_id=226933593 instance=ExtResource("6_nloix")]
 visible = false
 
 [node name="Menu" type="Control" parent="." unique_id=728287189]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 548.6186
-offset_bottom = 512.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 
 [node name="CenterContainer" type="CenterContainer" parent="Menu" unique_id=1229033199]
 layout_mode = 0
@@ -121,3 +121,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027, -0.738, -0.931)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1892380230]
 stream = ExtResource("8_avqv6")
 volume_db = 0.648
+autoplay = true
