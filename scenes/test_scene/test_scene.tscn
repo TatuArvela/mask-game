@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://rvf074qch17a" path="res://entities/player/player.tscn" id="1_8pyld"]
 [ext_resource type="Texture2D" uid="uid://dk28hu44mqq3n" path="res://materials/snow.png" id="1_ork3v"]
+[ext_resource type="Texture2D" uid="uid://55cv2d4hwdbq" path="res://scenes/test_scene/bag.png" id="2_8acla"]
 [ext_resource type="Script" uid="uid://b6ooa1ah1v00k" path="res://scenes/test_scene/restart_button.gd" id="2_2208h"]
 [ext_resource type="Texture2D" uid="uid://4jc5kgwsqhic" path="res://materials/MaskGame-MAPwithElfs.png" id="2_l4ihe"]
 [ext_resource type="AudioStream" uid="uid://b6tmye1apbqui" path="res://music/kuumotus_musiikki.wav" id="2_otg31"]
@@ -98,13 +99,6 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 alignment = 2
 
-[node name="GnomesLabel" type="Label" parent="Hud/GameplayContainer/HBoxContainer" unique_id=2013249852]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 24
-text = "Gnomes: "
-
 [node name="GnomeCountLabel" type="Label" parent="Hud/GameplayContainer/HBoxContainer" unique_id=2057090164]
 unique_name_in_owner = true
 layout_mode = 2
@@ -112,6 +106,15 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/outline_size = 9
 theme_override_font_sizes/font_size = 32
 text = "1/5"
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud/GameplayContainer/HBoxContainer" unique_id=1130761844]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Hud/GameplayContainer/HBoxContainer/MarginContainer" unique_id=704081533]
+layout_mode = 2
+texture = ExtResource("2_8acla")
+expand_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Hud/GameplayContainer" unique_id=2044858940]
 layout_mode = 2

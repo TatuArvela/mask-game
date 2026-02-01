@@ -29,11 +29,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="LeftHand" parent="Camera3D" unique_id=2003022841 instance=ExtResource("7_qiwj3")]
 unique_name_in_owner = true
-transform = Transform3D(0.49809736, 0, -0.04357787, 0, 0.5, 0, 0.04357787, 0, 0.49809736, -0.68150175, -0.6634853, 0.28459835)
+transform = Transform3D(0.45142952, -0.21050504, -0.04357787, 0.21130913, 0.45315388, 0, 0.03949496, -0.018416803, 0.49809736, -0.6, -0.663, 0.285)
 
 [node name="RightHand" parent="Camera3D" unique_id=2092376373 instance=ExtResource("3_26q78")]
 unique_name_in_owner = true
-transform = Transform3D(0.49809736, 0, 0.04357787, 0, 0.5, 0, -0.04357787, 0, 0.49809736, 0.682, -0.663, 0.285)
+transform = Transform3D(0.45142952, 0.21050504, 0.04357787, -0.21130913, 0.45315388, 0, -0.03949496, -0.018416803, 0.49809736, 0.6, -0.663, 0.285)
 
 [node name="PlayerGrabArea" type="Area3D" parent="." unique_id=797273529]
 collision_layer = 4
@@ -58,8 +58,8 @@ volume_db = -18.0
 max_db = 0.0
 pitch_scale = 0.9
 
-[node name="GrabAudio" type="AudioStreamPlayer3D" parent="." unique_id=1233711243]
+[node name="CatchAudio" type="AudioStreamPlayer3D" parent="." unique_id=1233711243]
 stream = ExtResource("5_8fjmc")
 
-[node name="MissAudio" type="AudioStreamPlayer3D" parent="." unique_id=314459167]
+[node name="LungeAudio" type="AudioStreamPlayer3D" parent="." unique_id=314459167]
 stream = ExtResource("6_qiwj3")

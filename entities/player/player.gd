@@ -7,7 +7,7 @@ extends CharacterBody3D
 @export var mouse_sensitivity: float = 0.01
 @export var gravity: float = 9.8
 
-@export var grab_cooldown: float = 0.3
+@export var grab_cooldown: float = 0.2
 
 @export var hand_bounce_amplitude_deg: float = 3.0
 @export var hand_bounce_frequency: float = 3.0
@@ -52,10 +52,24 @@ var energy: float = 0.0
 var _run_recovery_timer: float = 0.0
 var _is_running: bool = false
 
+@export var hand_lunge_distance := 0.5
+@export var hand_lunge_max_rotation_z := 90.0
+@export var hand_lunge_duration := grab_cooldown
+
+var _left_hand_default_pos: Vector3
+var _right_hand_default_pos: Vector3
+var _left_hand_default_rotation_z: float
+var _hand_lunge_offset_z := 0.0
+var _hand_lunge_rotation_z := 0.0
+var _hand_lunging := false
+
 
 func _ready() -> void:
-	# Initialize energy
 	energy = max_energy
+
+	_left_hand_default_pos = left_hand.position
+	_right_hand_default_pos = right_hand.position
+	_left_hand_default_rotation_z = left_hand.rotation_degrees.z
 
 
 func _process(delta: float) -> void:
@@ -195,6 +209,11 @@ func _update_hand_bounce(delta: float) -> void:
 		left_hand.rotation_degrees.y = _hand_current_angle
 		right_hand.rotation_degrees.x = - _hand_current_angle
 		right_hand.rotation_degrees.y = _hand_current_angle
+
+		left_hand.rotation_degrees.z = _hand_lunge_rotation_z
+		right_hand.rotation_degrees.z = - _hand_lunge_rotation_z
+		left_hand.position.z = _left_hand_default_pos.z + _hand_lunge_offset_z
+		right_hand.position.z = _right_hand_default_pos.z + _hand_lunge_offset_z
 		return
 
 	_hand_bounce_time += delta
@@ -207,6 +226,11 @@ func _update_hand_bounce(delta: float) -> void:
 	left_hand.rotation_degrees.y = _hand_current_angle
 	right_hand.rotation_degrees.x = - _hand_current_angle
 	right_hand.rotation_degrees.y = _hand_current_angle
+
+	left_hand.rotation_degrees.z = _hand_lunge_rotation_z
+	right_hand.rotation_degrees.z = - _hand_lunge_rotation_z
+	left_hand.position.z = _left_hand_default_pos.z + _hand_lunge_offset_z
+	right_hand.position.z = _right_hand_default_pos.z + _hand_lunge_offset_z
 
 
 func _input(event: InputEvent) -> void:
@@ -231,16 +255,15 @@ func grab() -> void:
 	if _grab_on_cooldown:
 		return
 
+	_hand_lunge()
 	_grab_on_cooldown = true
-
-	var audio_to_play: AudioStreamPlayer3D = $MissAudio
 
 	var areas = $PlayerGrabArea.get_overlapping_areas()
 	for area in areas:
 		if area.name == "GnomeGrabArea":
 			var gnome = area.get_parent().get_parent() # Gnome -> GnomeBody -> GnomeGrabArea
 			if gnome.is_grabbable():
-				audio_to_play = $GrabAudio
+				$CatchAudio.play()
 				if gnome.has_method("set_process"):
 					gnome.set_process(false)
 					gnome.set_physics_process(false)
@@ -257,27 +280,52 @@ func grab() -> void:
 				var local_start: Vector3 = move_node.position
 
 				var offset: float = 5.0
-				var local_target: Vector3 = Vector3(offset, local_start.y, local_start.z + offset)
+				var local_target: Vector3 = Vector3(local_start.x, local_start.y, local_start.z + offset)
 
 				var total_dur: float = 0.5
 				var elapsed: float = 0.0
-				var start_scale: Vector3 = move_node.scale
 				while elapsed < total_dur:
 					var t = elapsed / total_dur
 					move_node.position = local_start.lerp(local_target, t)
 					# Scale down over the whole animation
-					move_node.scale = start_scale.lerp(Vector3.ZERO, t)
 					await get_tree().process_frame
 					elapsed += get_process_delta_time()
 
 				move_node.position = local_target
-				move_node.scale = Vector3.ZERO
 
 				%GameManager.gnome_caught()
 				gnome.queue_free()
 				break
 
-	audio_to_play.play()
-
 	await get_tree().create_timer(grab_cooldown).timeout
 	_grab_on_cooldown = false
+
+
+func _hand_lunge() -> void:
+	if _hand_lunging:
+		return
+
+	$LungeAudio.play()
+	_hand_lunging = true
+
+	var elapsed := 0.0
+	var half := hand_lunge_duration * 0.5
+
+	while elapsed < hand_lunge_duration:
+		elapsed += get_process_delta_time()
+
+		if elapsed <= half:
+			# Lunge forward
+			var t := elapsed / half
+			_hand_lunge_rotation_z = lerp(_left_hand_default_rotation_z, hand_lunge_max_rotation_z, t)
+			_hand_lunge_offset_z = lerp(0.0, -hand_lunge_distance, t)
+		else:
+			# Return
+			var t := (elapsed - half) / half
+			_hand_lunge_rotation_z = lerp(hand_lunge_max_rotation_z, _left_hand_default_rotation_z, t)
+			_hand_lunge_offset_z = lerp(-hand_lunge_distance, 0.0, t)
+
+		await get_tree().process_frame
+
+	_hand_lunge_offset_z = 0.0
+	_hand_lunging = false
