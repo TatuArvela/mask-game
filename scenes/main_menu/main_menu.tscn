@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://kmtbr7iysb5r" path="res://scenes/main_menu/start_button.gd" id="7_thkx5"]
 [ext_resource type="AudioStream" uid="uid://ca2fjevkcwfc" path="res://sound_effects/cellphone_1.wav" id="8_avqv6"]
 [ext_resource type="PackedScene" uid="uid://fsf1rxjfwaqf" path="res://scenes/main_menu/phonehand.glb" id="9_x2yjq"]
+[ext_resource type="Texture2D" uid="uid://cq25nqju6ww46" path="res://logo_text.png" id="10_qel0l"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_m5tit"]
 material = ExtResource("1_f24s8")
@@ -63,7 +64,7 @@ environment = SubResource("Environment_et0bd")
 
 [node name="SnowBanks" parent="." unique_id=369598632 instance=ExtResource("4_fvj13")]
 
-[node name="Trees" parent="." unique_id=876479878 instance=ExtResource("5_21d2y")]
+[node name="Trees" parent="." unique_id=472787479 instance=ExtResource("5_21d2y")]
 
 [node name="River" parent="." unique_id=226933593 instance=ExtResource("6_nloix")]
 visible = false
@@ -86,15 +87,17 @@ color = Color(0.34980133, 0.6157364, 0.22797161, 1)
 
 [node name="Label" type="Label" parent="Menu/CenterContainer/ColorRect" unique_id=1566022134]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 9.999996
-offset_right = 1773.0
-offset_bottom = 451.0
+offset_left = 6.999999
+offset_top = 6.999996
+offset_right = 1864.0
+offset_bottom = 676.0
 scale = Vector2(0.129109, 0.19763349)
 theme_override_colors/font_color = Color(0.059146672, 0.19187322, 0, 1)
-theme_override_font_sizes/font_size = 160
-text = "Get rid of the gnomes. 
-You have 90 seconds."
+theme_override_font_sizes/font_size = 110
+text = "The possessed murder gnomes
+are back!!! You have to stop them
+NOW!! You have 90 seconds before
+all hope is lost!"
 
 [node name="StartButton" type="Button" parent="Menu/CenterContainer/ColorRect" unique_id=971682888]
 layout_mode = 0
@@ -112,6 +115,11 @@ script = ExtResource("7_thkx5")
 visible = false
 position = Vector2(842, 677)
 texture = ExtResource("7_e84fe")
+
+[node name="LogoText" type="Sprite2D" parent="Menu" unique_id=1787231368]
+position = Vector2(960, 168)
+scale = Vector2(0.60942024, 0.60942024)
+texture = ExtResource("10_qel0l")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=274090933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9200646, 4.4699297, 15.978261)

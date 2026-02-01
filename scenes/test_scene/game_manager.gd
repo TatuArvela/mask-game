@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 	if caught_gnomes == total_gnomes and not is_game_over:
 		%BaseMusic.stop()
 		%WinMusic.play()
-		%GameOverLabel.text = "The world is safe again!"
+		%GameOverLabel.text = "Crisis averted! You caught all the gnomes!"
 		is_game_over = true
 	
 	if time_left <= 0.0 and not is_game_over:
