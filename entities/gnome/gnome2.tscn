@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://ds3tylcaehe6u"]
+
+[ext_resource type="PackedScene" uid="uid://bq8b1oqb63x6" path="res://entities/gnome/gnome.glb" id="1_nfduy"]
+[ext_resource type="Texture2D" uid="uid://byt7735mrah4j" path="res://entities/gnome/textures/gnome_texture_2.png" id="2_htb4i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yb1cn"]
+albedo_texture = ExtResource("2_htb4i")
+
+[node name="gnome2" unique_id=831420782 instance=ExtResource("1_nfduy")]
+
+[node name="gnome" parent="." index="0" unique_id=426129484]
+surface_material_override/0 = SubResource("StandardMaterial3D_yb1cn")

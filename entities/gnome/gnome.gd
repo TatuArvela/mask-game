@@ -3,7 +3,7 @@ extends Node3D
 @onready
 var body: StaticBody3D = $GnomeBody
 @onready
-var gnome_mesh: Node3D = $GnomeBody/gnome
+var gnome_mesh: MeshInstance3D = $GnomeBody/GnomeMesh
 @onready
 var scheming_audio: AudioStreamPlayer3D = $SchemingAudio
 @onready
@@ -17,6 +17,7 @@ var snow_whoosh_audio: AudioStreamPlayer3D = $SnowWhooshAudio
 @export var stop_distance: float = 0.5
 @export var jump_delay_duration: float = 0.5
 @export var jump_curve: Curve
+@export var texture_override_options: Array[Texture2D] = []
 
 # Idle rotation randomization
 @export var idle_rotation_min_interval: float = 1.0
@@ -39,6 +40,7 @@ var jump_start_height: float = 0.0
 var debug_material: StandardMaterial3D
 var player: Node3D
 var rng: RandomNumberGenerator
+var chosen_texture: Texture2D = null
 
 # idle rotation runtime state
 var idle_elapsed: float = 0.0
@@ -61,6 +63,13 @@ func _ready() -> void:
 	idle_elapsed = 0.0
 	idle_duration = rng.randf_range(idle_rotation_min_interval, idle_rotation_max_interval)
 
+	# Choose random texture override
+	if texture_override_options.size() > 0:
+		var texture_index = rng.randi_range(0, texture_override_options.size() - 1)
+		chosen_texture = texture_override_options[texture_index]
+		var material = StandardMaterial3D.new()
+		material.albedo_texture = chosen_texture
+		gnome_mesh.set_surface_override_material(0, material)
 
 func _process(delta: float) -> void:
 	if jump_delay > 0:
@@ -154,27 +163,6 @@ func is_grabbable() -> bool:
 		return true
 	return false
 
-
-func _set_mesh_material(node: Node3D, material: Material) -> void:
-	if node is MeshInstance3D:
-		var mesh_instance = node as MeshInstance3D
-		for i in range(mesh_instance.get_surface_override_material_count()):
-			mesh_instance.set_surface_override_material(i, material)
-	
-	for child in node.get_children():
-		if child is Node3D:
-			_set_mesh_material(child as Node3D, material)
-
-
-func _clear_mesh_material(node: Node3D) -> void:
-	if node is MeshInstance3D:
-		var mesh_instance = node as MeshInstance3D
-		for i in range(mesh_instance.get_surface_override_material_count()):
-			mesh_instance.set_surface_override_material(i, null)
-	
-	for child in node.get_children():
-		if child is Node3D:
-			_clear_mesh_material(child as Node3D)
 
 func on_grabbed() -> void:
 	state = GnomeState.GRABBED
