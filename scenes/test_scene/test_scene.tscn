@@ -81,42 +81,6 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="WinLoseContainer" type="CenterContainer" parent="Hud" unique_id=474080862]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 1910.0
-offset_bottom = 1070.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Hud/WinLoseContainer" unique_id=500287432]
-layout_mode = 2
-
-[node name="GameOverLabel" type="Label" parent="Hud/WinLoseContainer/VBoxContainer" unique_id=73683996]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 64
-text = "You're winner!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="GameOverButtonContainer" type="HBoxContainer" parent="Hud/WinLoseContainer/VBoxContainer" unique_id=514069205]
-unique_name_in_owner = true
-layout_mode = 2
-alignment = 1
-
-[node name="RestartButton" type="Button" parent="Hud/WinLoseContainer/VBoxContainer/GameOverButtonContainer" unique_id=601816107]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Restart"
-script = ExtResource("2_2208h")
-
-[node name="QuitButton" type="Button" parent="Hud/WinLoseContainer/VBoxContainer/GameOverButtonContainer" unique_id=1433973475]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Quit"
-script = ExtResource("3_n7ikp")
-
 [node name="GameplayContainer" type="MarginContainer" parent="Hud" unique_id=1982121150]
 unique_name_in_owner = true
 layout_mode = 0
@@ -184,6 +148,42 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_constants/outline_size = 9
 theme_override_font_sizes/font_size = 36
 text = "30"
+
+[node name="WinLoseContainer" type="CenterContainer" parent="Hud" unique_id=474080862]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 1910.0
+offset_bottom = 1070.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/WinLoseContainer" unique_id=500287432]
+layout_mode = 2
+
+[node name="GameOverLabel" type="Label" parent="Hud/WinLoseContainer/VBoxContainer" unique_id=73683996]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+text = "You're winner!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverButtonContainer" type="HBoxContainer" parent="Hud/WinLoseContainer/VBoxContainer" unique_id=514069205]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="Hud/WinLoseContainer/VBoxContainer/GameOverButtonContainer" unique_id=601816107]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Restart"
+script = ExtResource("2_2208h")
+
+[node name="QuitButton" type="Button" parent="Hud/WinLoseContainer/VBoxContainer/GameOverButtonContainer" unique_id=1433973475]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+script = ExtResource("3_n7ikp")
 
 [node name="Audio" type="Node" parent="." unique_id=2007493565]
 
