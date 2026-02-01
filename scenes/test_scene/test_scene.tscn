@@ -25,11 +25,12 @@
 [ext_resource type="PackedScene" uid="uid://dd60noym4427c" path="res://scenery/grass.glb" id="16_3myh3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mndh0"]
-sky_top_color = Color(1, 1, 1, 1)
-sky_horizon_color = Color(0.56, 0.56, 0.56, 1)
+sky_top_color = Color(0.20784314, 0.44313726, 0.9764706, 1)
+sky_horizon_color = Color(0.28235295, 0.5058824, 0.9411765, 1)
 sky_curve = 1.6970571
 sky_energy_multiplier = 3.0
-ground_bottom_color = Color(1, 1, 1, 1)
+ground_bottom_color = Color(0.078431375, 0.17254902, 0.40392157, 1)
+ground_horizon_color = Color(0.3882353, 0.5372549, 0.7921569, 1)
 ground_curve = 1e-05
 ground_energy_multiplier = 0.0
 
@@ -51,6 +52,7 @@ fog_density = 1.0
 fog_sky_affect = 0.832
 volumetric_fog_density = 0.6605
 volumetric_fog_ambient_inject = 0.98
+adjustment_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0rq3"]
 albedo_texture = ExtResource("1_ork3v")
@@ -270,13 +272,13 @@ shape = SubResource("WorldBoundaryShape3D_8pyld")
 [node name="Snowfall" parent="." unique_id=1282455166 instance=ExtResource("4_a0rq3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
 
-[node name="SnowBanks" parent="." unique_id=369598632 instance=ExtResource("4_l4ihe")]
+[node name="SnowBanks" parent="." unique_id=411688806 instance=ExtResource("4_l4ihe")]
 
-[node name="River" parent="." unique_id=226933593 instance=ExtResource("6_vrddd")]
+[node name="River" parent="." unique_id=327516932 instance=ExtResource("6_vrddd")]
 
-[node name="Trees" parent="." unique_id=1532638155 instance=ExtResource("5_doi4a")]
+[node name="Trees" parent="." unique_id=472787479 instance=ExtResource("5_doi4a")]
 
-[node name="BgTrees" parent="." unique_id=1908191870 instance=ExtResource("15_n7ikp")]
+[node name="BgTrees" parent="." unique_id=1115281790 instance=ExtResource("15_n7ikp")]
 
 [node name="Flowers" parent="." unique_id=778773527 instance=ExtResource("9_mj4xq")]
 

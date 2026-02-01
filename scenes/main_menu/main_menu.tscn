@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://ca2fjevkcwfc" path="res://sound_effects/cellphone_1.wav" id="8_avqv6"]
 [ext_resource type="PackedScene" uid="uid://fsf1rxjfwaqf" path="res://scenes/main_menu/phonehand.glb" id="9_x2yjq"]
 [ext_resource type="Texture2D" uid="uid://cq25nqju6ww46" path="res://logo_text.png" id="10_qel0l"]
+[ext_resource type="Texture2D" uid="uid://l1ochmkv8ubf" path="res://credits.png" id="13_rrgl4"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_m5tit"]
 material = ExtResource("1_f24s8")
@@ -131,3 +132,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027, -0.738, -0.931)
 [node name="PhoneAudio" type="AudioStreamPlayer" parent="." unique_id=1892380230]
 stream = ExtResource("8_avqv6")
 volume_db = 0.648
+
+[node name="Credits" type="Sprite2D" parent="." unique_id=961297080]
+position = Vector2(1725.9999, 872.99994)
+rotation = 0.06283186
+scale = Vector2(0.58203125, 0.58203125)
+texture = ExtResource("13_rrgl4")
