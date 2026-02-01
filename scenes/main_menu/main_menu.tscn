@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://oagttttupjoi"]
 
 [ext_resource type="Material" uid="uid://6pwnjv4tqguu" path="res://materials/snow.tres" id="1_f24s8"]
+[ext_resource type="Script" uid="uid://c10s2wjjn73mf" path="res://scenes/main_menu/main_menu.gd" id="1_lqpn7"]
 [ext_resource type="Texture2D" uid="uid://4jc5kgwsqhic" path="res://materials/MaskGame-MAPwithElfs.png" id="2_e84fe"]
 [ext_resource type="Texture2D" uid="uid://ccj3vn0xs3nk1" path="res://scenes/main_menu/mask-game_bg.png" id="3_avqv6"]
 [ext_resource type="PackedScene" uid="uid://c01opld3b52i3" path="res://scenery/snow_banks.glb" id="4_fvj13"]
@@ -47,6 +48,7 @@ volumetric_fog_ambient_inject = 0.98
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="MainMenu" type="Node3D" unique_id=1425364131]
+script = ExtResource("1_lqpn7")
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=592223274]
 mesh = SubResource("PlaneMesh_m5tit")
@@ -118,7 +120,6 @@ fov = 71.10013
 [node name="PhoneHand" parent="Camera3D" unique_id=1633673681 instance=ExtResource("9_x2yjq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027, -0.738, -0.931)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1892380230]
+[node name="PhoneAudio" type="AudioStreamPlayer" parent="." unique_id=1892380230]
 stream = ExtResource("8_avqv6")
 volume_db = 0.648
-autoplay = true

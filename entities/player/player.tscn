@@ -4,10 +4,10 @@
 [ext_resource type="AudioStream" uid="uid://ngg8ev5jy4cx" path="res://sound_effects/sneak_1.wav" id="2_fkugw"]
 [ext_resource type="AudioStream" uid="uid://dqijt84fsej4" path="res://sound_effects/walk_2.wav" id="3_8fjmc"]
 [ext_resource type="PackedScene" uid="uid://nq0wnk4djstl" path="res://entities/player/right_hand.glb" id="3_26q78"]
-[ext_resource type="AudioStream" uid="uid://r5eroyv7cmi" path="res://sound_effects/got_it_1.wav" id="5_8fjmc"]
 [ext_resource type="AudioStream" uid="uid://dbddct37moikb" path="res://sound_effects/snowrun_1.wav" id="5_26q78"]
-[ext_resource type="AudioStream" uid="uid://4w3u5f3xwn2s" path="res://sound_effects/miss_1.wav" id="6_qiwj3"]
+[ext_resource type="AudioStream" uid="uid://dxgbufnccau5i" path="res://sound_effects/ohno.wav" id="7_26q78"]
 [ext_resource type="PackedScene" uid="uid://vuns5bb8vomp" path="res://entities/player/left_hand.glb" id="7_qiwj3"]
+[ext_resource type="AudioStream" uid="uid://nyodyj5vg02o" path="res://sound_effects/grab_miss.wav" id="8_26q78"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5aw1d"]
 radius = 0.2
@@ -59,7 +59,7 @@ max_db = 0.0
 pitch_scale = 0.9
 
 [node name="CatchAudio" type="AudioStreamPlayer3D" parent="." unique_id=1233711243]
-stream = ExtResource("5_8fjmc")
+stream = ExtResource("7_26q78")
 
 [node name="LungeAudio" type="AudioStreamPlayer3D" parent="." unique_id=314459167]
-stream = ExtResource("6_qiwj3")
+stream = ExtResource("8_26q78")

@@ -70,6 +70,7 @@ texture_override_options = Array[Texture2D]([ExtResource("3_rakuv"), ExtResource
 collision_layer = 0
 
 [node name="GnomeMesh" type="MeshInstance3D" parent="GnomeBody" unique_id=1392238103]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gbtru")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GnomeBody" unique_id=268978251]
