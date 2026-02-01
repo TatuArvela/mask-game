@@ -22,13 +22,20 @@ func _process(delta: float) -> void:
 	%GnomeCountLabel.text = str(caught_gnomes) + "/" + str(total_gnomes)
 	%EnergyProgressBar.value = %Player.energy
 
-	if caught_gnomes == total_gnomes:
+	if caught_gnomes == total_gnomes and not is_game_over:
+		%BaseMusic.stop()
+		%WinMusic.play()
 		%WinLabel.show()
 		is_game_over = true
 	
 	if time_left <= 0.0 and not is_game_over:
+		%BaseMusic.stop()
+		%LoseSound.play(0.8)
 		%LoseLabel.show()
 		is_game_over = true
+	
+	if is_game_over:
+		%GameplayContainer.hide()
 
 
 func gnome_caught() -> void:

@@ -4,10 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dk28hu44mqq3n" path="res://materials/snow.png" id="1_ork3v"]
 [ext_resource type="Texture2D" uid="uid://4jc5kgwsqhic" path="res://materials/MaskGame-MAPwithElfs.png" id="2_l4ihe"]
 [ext_resource type="AudioStream" uid="uid://b6tmye1apbqui" path="res://music/kuumotus_musiikki.wav" id="2_otg31"]
+[ext_resource type="AudioStream" uid="uid://12jvvgiingff" path="res://music/gnome_rave.wav" id="3_hqp6l"]
 [ext_resource type="PackedScene" uid="uid://besyrekpdlapw" path="res://scenery/collision_walls.tscn" id="3_ork3v"]
-[ext_resource type="AudioStream" uid="uid://nxtj2dlc3xsy" path="res://sound_effects/bird_sounds_1.wav" id="3_q6ea6"]
+[ext_resource type="AudioStream" uid="uid://drtvqhulxba14" path="res://sound_effects/winter_wind.wav" id="3_q6ea6"]
 [ext_resource type="PackedScene" uid="uid://nh430rmpdj0i" path="res://scenery/snowfall.tscn" id="4_a0rq3"]
 [ext_resource type="PackedScene" uid="uid://c01opld3b52i3" path="res://scenery/snow_banks.glb" id="4_l4ihe"]
+[ext_resource type="AudioStream" uid="uid://dwlbobj3t7dlt" path="res://sound_effects/gnomes_laughing_far.wav" id="4_uxsya"]
 [ext_resource type="PackedScene" uid="uid://bykwnmcaycsik" path="res://scenery/trees.glb" id="5_doi4a"]
 [ext_resource type="PackedScene" uid="uid://cf7nr22ao4mkq" path="res://entities/gnome/gnome.tscn" id="6_doi4a"]
 [ext_resource type="PackedScene" uid="uid://dosljd40iaqcr" path="res://scenery/river.glb" id="6_vrddd"]
@@ -75,77 +77,14 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Hud" unique_id=1982121150]
+[node name="WinLoseContainer" type="CenterContainer" parent="Hud" unique_id=474080862]
 layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 1910.0
+offset_bottom = 1070.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Hud/MarginContainer" unique_id=865921654]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-alignment = 2
-
-[node name="GnomesLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer" unique_id=2013249852]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 24
-text = "Gnomes: "
-
-[node name="GnomeCountLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer" unique_id=2057090164]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 32
-text = "1/5"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Hud/MarginContainer" unique_id=2044858940]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-
-[node name="GnomesLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer2" unique_id=2093914795]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 24
-text = "Energy:"
-
-[node name="Control" type="Control" parent="Hud/MarginContainer/HBoxContainer2" unique_id=2039227155]
-layout_mode = 2
-
-[node name="EnergyProgressBar" type="ProgressBar" parent="Hud/MarginContainer/HBoxContainer2/Control" unique_id=613885873]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 4.0
-offset_right = 304.0
-offset_bottom = 36.0
-value = 50.0
-show_percentage = false
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Hud/MarginContainer" unique_id=482632527]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-
-[node name="TimeLeftLabel" type="Label" parent="Hud/MarginContainer/HBoxContainer3" unique_id=1178149591]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 36
-text = "30"
-
-[node name="CenterContainer" type="CenterContainer" parent="Hud/MarginContainer" unique_id=474080862]
-layout_mode = 2
-
-[node name="WinLabel" type="Label" parent="Hud/MarginContainer/CenterContainer" unique_id=73683996]
+[node name="WinLabel" type="Label" parent="Hud/WinLoseContainer" unique_id=73683996]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 8
@@ -154,7 +93,7 @@ text = "You're winner!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LoseLabel" type="Label" parent="Hud/MarginContainer/CenterContainer" unique_id=799728407]
+[node name="LoseLabel" type="Label" parent="Hud/WinLoseContainer" unique_id=799728407]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 8
@@ -163,13 +102,92 @@ text = "It is too late now..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GameplayContainer" type="MarginContainer" parent="Hud" unique_id=1982121150]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hud/GameplayContainer" unique_id=865921654]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="GnomesLabel" type="Label" parent="Hud/GameplayContainer/HBoxContainer" unique_id=2013249852]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 24
+text = "Gnomes: "
+
+[node name="GnomeCountLabel" type="Label" parent="Hud/GameplayContainer/HBoxContainer" unique_id=2057090164]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 32
+text = "1/5"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Hud/GameplayContainer" unique_id=2044858940]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="GnomesLabel" type="Label" parent="Hud/GameplayContainer/HBoxContainer2" unique_id=2093914795]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 24
+text = "Energy:"
+
+[node name="Control" type="Control" parent="Hud/GameplayContainer/HBoxContainer2" unique_id=2039227155]
+layout_mode = 2
+
+[node name="EnergyProgressBar" type="ProgressBar" parent="Hud/GameplayContainer/HBoxContainer2/Control" unique_id=613885873]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 4.0
+offset_right = 304.0
+offset_bottom = 36.0
+value = 50.0
+show_percentage = false
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Hud/GameplayContainer" unique_id=482632527]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TimeLeftLabel" type="Label" parent="Hud/GameplayContainer/HBoxContainer3" unique_id=1178149591]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 36
+text = "30"
+
 [node name="Audio" type="Node" parent="." unique_id=2007493565]
 
-[node name="Music" type="AudioStreamPlayer3D" parent="Audio" unique_id=259118501]
+[node name="BaseMusic" type="AudioStreamPlayer3D" parent="Audio" unique_id=259118501]
+unique_name_in_owner = true
 stream = ExtResource("2_otg31")
 autoplay = true
 
-[node name="BirdSounds" type="AudioStreamPlayer3D" parent="Audio" unique_id=111636669]
+[node name="WinMusic" type="AudioStreamPlayer3D" parent="Audio" unique_id=1684828997]
+unique_name_in_owner = true
+stream = ExtResource("3_hqp6l")
+
+[node name="LoseSound" type="AudioStreamPlayer3D" parent="Audio" unique_id=473146281]
+unique_name_in_owner = true
+stream = ExtResource("4_uxsya")
+volume_db = 4.0
+pitch_scale = 0.4
+
+[node name="Wind" type="AudioStreamPlayer3D" parent="Audio" unique_id=1327743487]
 stream = ExtResource("3_q6ea6")
 autoplay = true
 

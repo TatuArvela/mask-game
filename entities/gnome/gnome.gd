@@ -3,8 +3,6 @@ extends Node3D
 @onready
 var body: StaticBody3D = $GnomeBody
 @onready
-var grab_area: Area3D = $GrabArea
-@onready
 var gnome_mesh: Node3D = $GnomeBody/gnome
 @onready
 var scheming: AudioStreamPlayer3D = $Scheming
@@ -28,7 +26,8 @@ enum GnomeState {
 	WILL_JUMP_TO_IDLE,
 	WILL_JUMP_TO_HIDING,
 	JUMP_TO_IDLE,
-	JUMP_TO_HIDING
+	JUMP_TO_HIDING,
+	GRABBED
 }
 
 var state: GnomeState = GnomeState.WILL_JUMP_TO_IDLE
@@ -172,3 +171,6 @@ func _clear_mesh_material(node: Node3D) -> void:
 	for child in node.get_children():
 		if child is Node3D:
 			_clear_mesh_material(child as Node3D)
+
+func on_grabbed() -> void:
+	state = GnomeState.GRABBED

@@ -69,7 +69,6 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 
-
 func handle_movement(delta: float) -> void:
 	if (%GameManager.is_game_over):
 		velocity.x = 0.0
@@ -204,15 +203,51 @@ func grab() -> void:
 
 	_grab_on_cooldown = true
 
+	var audio_to_play: AudioStreamPlayer3D = $MissAudio
+
 	var areas = $PlayerGrabArea.get_overlapping_areas()
 	for area in areas:
 		if area.name == "GnomeGrabArea":
-			# Gnome -> GnomeBody -> GnomeGrabArea
-			var gnome = area.get_parent().get_parent()
+			var gnome = area.get_parent().get_parent() # Gnome -> GnomeBody -> GnomeGrabArea
 			if gnome.is_grabbable():
+				audio_to_play = $GrabAudio
+				if gnome.has_method("set_process"):
+					gnome.set_process(false)
+					gnome.set_physics_process(false)
+
+				var move_node: Node = gnome
+
+				var preserved_transform: Transform3D = move_node.global_transform
+				var old_parent := move_node.get_parent()
+				if old_parent:
+					old_parent.remove_child(move_node)
+					add_child(move_node)
+					move_node.global_transform = preserved_transform
+
+				var local_start: Vector3 = move_node.position
+
+				var offset: float = 5.0
+				var local_target: Vector3 = Vector3(offset, local_start.y, local_start.z + offset)
+
+				var total_dur: float = 0.5
+				var elapsed: float = 0.0
+				var start_scale: Vector3 = move_node.scale
+				while elapsed < total_dur:
+					var t = elapsed / total_dur
+					move_node.position = local_start.lerp(local_target, t)
+					# Scale down over the whole animation
+					move_node.scale = start_scale.lerp(Vector3.ZERO, t)
+					await get_tree().process_frame
+					elapsed += get_process_delta_time()
+
+				move_node.position = local_target
+				move_node.scale = Vector3.ZERO
+
 				%GameManager.gnome_caught()
 				gnome.queue_free()
 				break
+
+	audio_to_play.play()
 
 	await get_tree().create_timer(grab_cooldown).timeout
 	_grab_on_cooldown = false
